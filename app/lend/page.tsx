@@ -87,7 +87,7 @@ export default function RentLandingPage() {
             />
             <div className="absolute bottom-4 left-4 right-4 bg-white/90 p-4 rounded-2xl shadow-lg">
               <p className="text-md font-bold">
-                <span className="font-bold">{selectedItem.label}'s</span> typically rent for
+                <span className="font-bold">{selectedItem.label}&apos;s</span> typically rent for
                 <span className="text-[var(--color-primary)] font-bold"> R{selectedItem.dailyEarnings}/day</span>
               </p>
             </div>
