@@ -24,8 +24,8 @@ export default function HeroSection() {
   const selectedItem = popularItems[selectedIndex];
 
   return (
-    <div className="w-full bg-white text-gray-900">
-      <section className="flex flex-col md:flex-row items-center md:items-start justify-between px-6 pt-24 md:pt-36 pb-12 max-w-7xl mx-auto gap-8">
+    <div className="w-full text-gray-900">
+      <section className="flex flex-col md:flex-row items-center justify-between px-6 pt-24 md:pt-36 pb-12 max-w-7xl mx-auto gap-8">
         <div className="w-full md:w-1/2 text-center md:text-left">
           <p className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black leading-tight max-w-[15ch] mx-auto md:mx-0">
             You could earn{" "}

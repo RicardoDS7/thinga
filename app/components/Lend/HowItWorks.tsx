@@ -5,7 +5,7 @@ const basePath = process.env.NODE_ENV === "production" ? "/thinga" : "";
 
 export default function HowItWorks() {
   return (
-    <section className="w-full bg-white py-20 px-6">
+    <section className="w-full py-20 px-6">
       <div className="max-w-7xl mx-auto text-center">
         {/* Section Header */}
         <h2 className="text-3xl md:text-5xl font-bold">
@@ -13,7 +13,7 @@ export default function HowItWorks() {
         </h2>
 
         {/* Mockups or phone visuals */}
-        <div className="flex flex-col md:flex-row justify-center items-center h-128 overflow-hidden relative w-full md:w-2/3 align-center mx-auto mt-10 mb-16">
+        <div className="flex flex-col md:flex-row justify-center items-center h-128 overflow-hidden relative w-full md:w-2/3 align-center mx-auto mt-10 mb-0">
           <Image
             src={`${basePath}/Mock-up.png`}
             alt="List your item"
@@ -21,9 +21,10 @@ export default function HowItWorks() {
             className="object-cover object-top"
           />
         </div>
+        </div>
 
         {/* Step Highlights */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center py-10 max-w-7xl mx-auto">
           <div className="flex flex-col items-center">
             <div className="mb-4">
               <Tag />
@@ -54,7 +55,7 @@ export default function HowItWorks() {
             </p>
           </div>
         </div>
-      </div>
+
     </section>
   );
 }
