@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 const popularItems = [
-  { label: "Tool Set", image: "/tool-set.png", dailyEarnings: 75 },
+  { label: "Tool Set", image: "/tool-set.png", dailyEarnings: 200 },
   { label: "Evening Dress", image: "/dress.png", dailyEarnings: 300 },
   { label: "GoPro", image: "/camera.png", dailyEarnings: 200 },
   { label: "Tent", image: "/camping-gear.png", dailyEarnings: 150 },
@@ -23,9 +23,9 @@ export default function RentLandingPage() {
   const selectedItem = popularItems[selectedIndex];
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-white text-gray-900">
-      <section className="flex flex-col md:flex-row items-center md:items-start justify-between w-full px-6 pt-20 pb-10 max-w-7xl mx-auto gap-0">
-        <div className="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
+    <div className="flex flex-col w-full min-h-screen bg-white text-gray-900 mt-[16px] md:mt-16">
+      <section className="flex flex-col md:flex-row items-center md:items-start justify-between w-full px-6 pt-20 pb-10 max-w-7xl mx-auto md:gap-6">
+        <div className="w-full md:w-1/2 mb-6 md:mb-0 text-center md:text-left">
             
             <p className="mt-2 text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-[900] leading-tight text-center w-[15ch] mx-auto">
                 You could earn{" "}
@@ -58,7 +58,7 @@ export default function RentLandingPage() {
         
 
         
-          <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-4">
+          <div className="flex flex-wrap gap-3 justify-center mt-4">
             {popularItems.map((item, index) => (
               <button
                 key={item.label}
