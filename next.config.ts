@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   output: "export",
-  basePath: "/your-repo-name",
+  basePath: "/thinga",
   trailingSlash: true, // Optional but recommended for GitHub Pages
 };
 
