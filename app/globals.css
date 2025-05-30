@@ -42,7 +42,7 @@ h1, h2, h3, h4 {
   color: var(--color-primary);
 }
 
-button {
+.normal-button {
   background-color: var(--color-primary);
   color: white;
   border: none;
@@ -52,16 +52,16 @@ button {
   transition: background-color 0.2s ease;
 }
 
-button:hover {
+.normal-button:hover {
   background-color: var(--color-accent);
 }
 
-button:active {
+.normal-button:active {
   background-color: var(--color-accent);
 }
 
 /* 🔥 This handles selected buttons */
-button.selected {
+.normal-button.selected {
   background-color: var(--color-accent);
   color: white;
 }
