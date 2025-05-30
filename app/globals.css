@@ -35,11 +35,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--color-primary);
-  text-decoration: underline;
-}
-
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 1000;
@@ -80,12 +75,6 @@ button.selected {
 
   .font-sans {
     font-family: var(--font-sans);
-  }
-}
-
-@layer base {
-  .font-display {
-    font-family: var(--font-display), sans-serif;
   }
 }
 
