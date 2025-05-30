@@ -1,6 +1,8 @@
 import { Calendar, Handshake, Tag } from "lucide-react";
 import Image from "next/image";
 
+const basePath = process.env.NODE_ENV === "production" ? "/thinga" : "";
+
 export default function HowItWorks() {
   return (
     <section className="w-full bg-white py-20 px-6">
@@ -13,7 +15,7 @@ export default function HowItWorks() {
         {/* Mockups or phone visuals */}
         <div className="flex flex-col md:flex-row justify-center items-center h-128 overflow-hidden relative w-full md:w-2/3 align-center mx-auto mt-10 mb-16">
           <Image
-            src="./Mock-up.png"
+            src={`${basePath}/Mock-up.png`}
             alt="List your item"
             fill
             className="object-cover object-top"
