@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-primary: #4CAF87;
+  --color-secondary: #1C2E3D;
+  --color-accent: #FF6B6B;
+  --color-bg: #FAFAF6;
+  --color-text: #2E2E2E;
+  --color-border: #E6E6E6;
+  --font-sans: var(--font-geist-sans, 'Inter', sans-serif);
+  --font-display: var(--font-comfortaa);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans, 'Inter', sans-serif);
+  --font-display: var(--font-comfortaa);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --color-bg: #0a0a0a;
+    --color-text: #ededed;
+  }
+} */
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 1000;
+  font-style: bold;
+  color: var(--color-primary);
+}
+
+button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--color-accent);
+}
+
+button:active {
+  background-color: var(--color-accent);
+}
+
+/* 🔥 This handles selected buttons */
+button.selected {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+
+/* Define custom font classes */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-sans {
+    font-family: var(--font-sans);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  .font-display {
+    font-family: var(--font-display), sans-serif;
+  }
+}
+
+input[type="range"].custom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background: transparent;
+  cursor: pointer;
+  margin: 16px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Track background is set dynamically via inline style */
+
+/* Webkit thumb */
+/* Webkit Thumb - perfectly centered */
+input[type="range"].custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  border: none;
+  margin-top: -3px; /* Adjusted to center perfectly */
+  position: relative;
+  z-index: 2;
+}
+
+/* Firefox thumb */
+input[type="range"].custom-slider::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  border: none;
+  position: relative;
+  z-index: 2;
 }
