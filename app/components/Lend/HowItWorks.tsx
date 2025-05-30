@@ -13,7 +13,7 @@ export default function HowItWorks() {
         {/* Mockups or phone visuals */}
         <div className="flex flex-col md:flex-row justify-center items-center h-128 overflow-hidden relative w-full md:w-2/3 align-center mx-auto mt-10 mb-16">
           <Image
-            src="/Mock-up.png"
+            src="./Mock-up.png"
             alt="List your item"
             fill
             className="object-cover object-top"

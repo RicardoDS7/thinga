@@ -4,11 +4,11 @@ import { useState } from "react";
 import Image from "next/image";
 
 const popularItems = [
-  { label: "Tool Set", image: "/tool-set.png", dailyEarnings: 200 },
+  { label: "Tool Set", image: "./tool-set.png", dailyEarnings: 200 },
   { label: "Evening Dress", image: "/dress.png", dailyEarnings: 300 },
-  { label: "GoPro", image: "/camera.png", dailyEarnings: 200 },
-  { label: "Tent", image: "/camping-gear.png", dailyEarnings: 150 },
-  { label: "Podcast Studio", image: "/podcast-studio.png", dailyEarnings: 1500 },
+  { label: "GoPro", image: "./camera.png", dailyEarnings: 200 },
+  { label: "Tent", image: "./camping-gear.png", dailyEarnings: 150 },
+  { label: "Podcast Studio", image: "./podcast-studio.png", dailyEarnings: 1500 },
 ];
 
 function getSliderBackground(days: number, min = 1, max = 10) {
