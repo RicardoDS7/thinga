@@ -29,7 +29,7 @@ export default function AddableItemGrid() {
       <h2 className="text-2xl font-semibold mb-6 text-center">
         What would you like to rent out?
       </h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {items.map((item) => (
           <button
             key={item.label}

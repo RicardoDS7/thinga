@@ -49,7 +49,7 @@ export default function HeroSection() {
             className="custom-slider w-full mt-6"
             style={{ background: getSliderBackground(days) }}
           />
-          <label htmlFor="days" className="block text-sm font-medium text-gray-700 mt-2">
+          <label htmlFor="days" className="block text-normal font-medium text-gray-700 mt-2">
             Estimated earnings over
             <span className="font-semibold text-primary"> {days} day{days !== 1 ? "s" : ""}</span>
           </label>
