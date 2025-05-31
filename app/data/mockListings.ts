@@ -16,7 +16,7 @@ export const mockListings: Listing[] = [
     title: "GoPro Hero 11",
     price: 200,
     image: "/mock/gopro.png",
-    category: "Media Equipment",
+    category: "Cameras & Audio",
     location: "Cape Town",
   },
   {
@@ -24,7 +24,7 @@ export const mockListings: Listing[] = [
     title: "4-Person Camping Tent",
     price: 150,
     image: "/mock/tent.png",
-    category: "Outdoor Gear",
+    category: "Camping & Outdoor",
     location: "Johannesburg",
   },
   {
@@ -32,7 +32,7 @@ export const mockListings: Listing[] = [
     title: "Evening Dress – Emerald Green",
     price: 250,
     image: "/mock/dress.png",
-    category: "Clothing",
+    category: "Clothing & fashion",
     location: "Durban",
   },
   // Add 10–20 more

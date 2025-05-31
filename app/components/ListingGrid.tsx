@@ -1,44 +1,63 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { mockListings } from "../data/mockListings";
 import Image from "next/image";
+import Link from "next/link";
+
+// Slugify function
+const slugify = (text: string) =>
+  text.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-").trim();
 
 export default function ListingsGrid() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
+
   const categories = Array.from(new Set(mockListings.map((item) => item.category)));
 
-  const filteredListings = selectedCategory
-    ? mockListings.filter((item) => item.category === selectedCategory)
+  console.log("categoryParam from URL:", categoryParam);
+  console.log("matching slugs from listings:", mockListings.map(item => slugify(item.category)));
+
+  // ✅ This ensures we filter based on slug
+  const filteredListings = categoryParam
+    ? mockListings.filter(
+        (item) => slugify(item.category) === categoryParam
+      )
     : mockListings;
 
   return (
     <div className="px-4 pb-10 max-w-7xl mx-auto">
+      
       {/* Filter Buttons */}
       <div className="flex flex-wrap gap-3 justify-center mb-6">
-        <button
-          onClick={() => setSelectedCategory(null)}
+        <Link
+          href="/listings"
           className={`px-4 py-2 rounded-full text-sm border ${
-            selectedCategory === null
+            categoryParam === null
               ? "bg-primary text-white border-primary"
               : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
           }`}
         >
           All
-        </button>
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-2 rounded-full text-sm border ${
-              selectedCategory === category
-                ? "bg-primary text-white border-primary"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-            }`}
-          >
-            {category}
-          </button>
-        ))}
+        </Link>
+
+        {categories.map((category) => {
+          const slug = slugify(category);
+          return (
+            <Link
+              key={slug}
+              href={`/listings?category=${slug}`}
+              className={`px-4 py-2 rounded-full text-sm border ${
+                categoryParam === slug
+                  ? "bg-primary text-white border-primary"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+              }`}
+            >
+              {category}
+          </Link>
+
+          );
+        })}
       </div>
 
       {/* Grid of Listings */}

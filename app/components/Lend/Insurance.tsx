@@ -23,7 +23,7 @@ export default function Protection() {
     <section className="bg-white py-20 px-6 text-gray-900">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Whatever you rent, you're always protected
+          Whatever you rent, you&apos;re always protected
         </h2>
 
         <div className="space-y-8">
