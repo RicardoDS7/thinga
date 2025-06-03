@@ -1,61 +1,49 @@
-import { Calendar, Handshake, Tag } from "lucide-react";
-import Image from "next/image";
+"use client";
 
-const basePath = process.env.NODE_ENV === "production" ? "/thinga" : "";
+export default function HowItWorksSection() {
+  const steps = [
+    {
+      title: "1. Search",
+      description: "Find anything from power tools to party gear near you by searching what you need and when.",
+      icon: "🔍",
+    },
+    {
+      title: "2. Book & Pay",
+      description: "Choose the item, pick your dates, and pay securely — all in a few taps. No awkward bank transfers.",
+      icon: "💳",
+    },
+    {
+      title: "3. Pick Up or Get It Delivered",
+      description: "Collect it from the lender or have it delivered to your door (if the lender offers delivery).",
+      icon: "📦",
+    },
+    {
+      title: "4. Use & Return",
+      description: "Use it like it’s yours, then return it clean and on time. Simple, fair, and flexible.",
+      icon: "✅",
+    },
+  ];
 
-export default function HowItWorks() {
   return (
-    <section className="w-full py-20 px-6">
+    <section className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-center">
-        {/* Section Header */}
-        <h2 className="text-3xl md:text-5xl font-bold">
-          It&apos;s easy to list your items on thingo
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-12">
+          How Thingo Works for Renters
         </h2>
 
-        {/* Mockups or phone visuals */}
-        <div className="flex flex-col md:flex-row justify-center items-center h-128 overflow-hidden relative w-full md:w-2/3 align-center mx-auto mt-10 mb-0">
-          <Image
-            src={`${basePath}/Mock-up.png`}
-            alt="List your item"
-            fill
-            className="object-cover object-top"
-          />
-        </div>
-        </div>
-
-        {/* Step Highlights */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center py-10 max-w-7xl mx-auto">
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
-              <Tag />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {steps.map((step, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition duration-200 flex flex-col items-center text-center"
+            >
+              <div className="text-4xl mb-4">{step.icon}</div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{step.title}</h3>
+              <p className="text-sm text-gray-600">{step.description}</p>
             </div>
-            <h3 className="text-xl font-semibold mb-2">List your item in minutes</h3>
-            <p className="text-normal text-gray-600 max-w-xs">
-              Add your drill, dress, or GoPro and start receiving requests with no hassle.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
-              <Calendar />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Rent on your schedule</h3>
-            <p className="text-normal text-gray-600 max-w-xs">
-              Set your availability, pricing, and preferences at any time.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center">
-            <div className="mb-4">
-              <Handshake />
-            </div>
-            <h3 className="text-xl font-semibold mb-2">Support you can trust</h3>
-            <p className="text-normal text-gray-600 max-w-xs">
-              Get help from our team or chat with experienced users when needed.
-            </p>
-          </div>
+          ))}
         </div>
-
+      </div>
     </section>
   );
 }

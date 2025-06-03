@@ -12,7 +12,7 @@ export default function Header() {
             <h1 className="text-3xl">thingo<span className="text-[var(--color-accent)]">.</span></h1>
             </Link>
             <Link
-            href="/rent"
+            href="/lend"
             className="hidden md:block bg-[var(--color-primary)] text-white font-semibold py-2 px-6 rounded-full shadow-sm hover:brightness-110 transition"
             >
             Start Earning
@@ -23,7 +23,7 @@ export default function Header() {
       {/* Mobile Sticky Bottom CTA */}
       <div className="fixed bottom-0 left-0 w-full md:hidden bg-white border-t border-gray-200 px-6 py-3 z-50">
         <Link
-          href="/rent"
+          href="/lend"
           className="block w-full text-center bg-[var(--color-primary)] text-white font-semibold py-3 rounded-full shadow-md hover:brightness-110 transition"
         >
           Start Earning
