@@ -61,10 +61,10 @@ h1, h2, h3, h4 {
 }
 
 /* 🔥 This handles selected buttons */
-.normal-button.selected {
+/* .normal-button.selected {
   background-color: var(--color-accent);
   color: white;
-}
+} */
 
 
 /* Define custom font classes */

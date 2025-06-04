@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search } from "lucide-react";
 import debounce from "lodash.debounce";
 import Image from "next/image";
@@ -9,12 +9,12 @@ import { saveSearchTerm } from "@/app/lib/saveSearch";
 export default function HeroSection() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const debouncedSaveSearch = useCallback(
+  const debouncedSaveSearch = useMemo(() =>
     debounce(async (term: string) => {
       await saveSearchTerm(term);
-    }, 1000),
-    []
-  );
+    }, 1000)
+  , []);
+
 
   const handleSearch = () => {
     if (searchTerm.trim()) {

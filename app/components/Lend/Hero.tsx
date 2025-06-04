@@ -59,10 +59,10 @@ export default function HeroSection() {
               <button
                 key={item.label}
                 onClick={() => setSelectedIndex(index)}
-                className={`normal-button px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
+                className={`cursor-pointer text-white px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
                   index === selectedIndex
-                    ? "bg-primary text-white border-primary"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                    ? "bg-[var(--color-accent)] border-[var(--color-accent)]"
+                    : "bg-[var(--color-primary)] border-[var(--color-primary)] hover:brightness-110"
                 }`}
               >
                 {item.label}
