@@ -1,9 +1,10 @@
 // lib/firebase.ts
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import { getAnalytics, isSupported } from "firebase/analytics";
 
-// Your Firebase config
+// Firebase config from environment variables
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -14,15 +15,12 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Ensure app is not re-initialized in dev (hot reload)
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// Initialize Firestore
 const db = getFirestore(app);
+const storage = getStorage(app); // ✅ NEW: Firebase Storage instance
 
-// Initialize analytics only on the client side
 let analytics: ReturnType<typeof getAnalytics> | null = null;
-
 if (typeof window !== "undefined") {
   isSupported().then((supported) => {
     if (supported) {
@@ -31,4 +29,4 @@ if (typeof window !== "undefined") {
   });
 }
 
-export { app, db, analytics };
+export { app, db, storage, analytics };

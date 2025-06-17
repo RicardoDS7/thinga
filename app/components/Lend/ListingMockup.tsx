@@ -1,27 +1,27 @@
 "use client";
 
-import { useState } from "react";
-import { Camera, Shirt, Tent, Truck, PartyPopper, Building, Hammer, Luggage } from "lucide-react"; // Example icons
+import { Camera, Shirt, Tent, Truck, PartyPopper, Building, Hammer, Luggage } from "lucide-react";
 
 const items = [
-    { label: "Tools & DIY", icon: <Hammer size={24} /> },
-    { label: "Cameras & Audio", icon: <Camera size={24} /> },
-    { label: "Clothing & Fashion", icon: <Shirt size={24} /> },
-    { label: "Studios & Spaces", icon: <Building size={24} /> },
-    { label: "Camping & Outdoor", icon: <Tent size={24} /> },
-    { label: "Party & Event Gear", icon: <PartyPopper size={24} /> },
-    { label: "Vehicles & Trailers", icon: <Truck size={24} /> },
-    { label: "Travel Essentials", icon: <Luggage size={24} /> },
-
+  { label: "Tools & DIY", icon: <Hammer size={24} /> },
+  { label: "Cameras & Audio", icon: <Camera size={24} /> },
+  { label: "Clothing & Fashion", icon: <Shirt size={24} /> },
+  { label: "Studios & Spaces", icon: <Building size={24} /> },
+  { label: "Camping & Outdoor", icon: <Tent size={24} /> },
+  { label: "Party & Event Gear", icon: <PartyPopper size={24} /> },
+  { label: "Vehicles & Trailers", icon: <Truck size={24} /> },
+  { label: "Travel Essentials", icon: <Luggage size={24} /> },
 ];
 
-export default function AddableItemGrid() {
-  const [selected, setSelected] = useState<string[]>([]);
+interface Props {
+  selected: string | null;
+  onChange: (newSelected: string | null) => void;
+}
 
+export default function AddableItemGrid({ selected, onChange }: Props) {
+  // Only one category can be selected. Clicking again clears selection.
   const toggleItem = (label: string) => {
-    setSelected((prev) =>
-      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label]
-    );
+    onChange(selected === label ? null : label);
   };
 
   return (
@@ -33,9 +33,10 @@ export default function AddableItemGrid() {
         {items.map((item) => (
           <button
             key={item.label}
+            type="button"
             onClick={() => toggleItem(item.label)}
             className={`flex flex-col items-center justify-center p-4 border rounded-xl transition ${
-              selected.includes(item.label)
+              selected === item.label
                 ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white"
                 : "border-gray-300 bg-white hover:bg-gray-50"
             }`}

@@ -2,6 +2,7 @@
 
 import React from "react";
 import type { Metadata } from "next";
+import LendHeader from "@/app/components/Lend/LendHeader";
 
 export const metadata: Metadata = {
   title: "Lend on Thingo",
@@ -12,6 +13,7 @@ export default function LendLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="min-h-screen bg-white text-gray-800">
       
+      <LendHeader />
       <main>{children}</main>
       {/* Optional: Lend-specific footer */}
     </div>
