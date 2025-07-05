@@ -127,3 +127,76 @@ input[type="range"].custom-slider::-moz-range-thumb {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;             /* Chrome, Safari, Opera */
 }
+
+.liquid-glass {
+  --glass-size-w: #{pxToRem(270)};
+  --glass-size-h: #{pxToRem(270)};
+  --glass-padding: #{pxToRem(30)};
+  --transition: 0.4s cubic-bezier(0.5, 1.5, 0.5, 1);
+  --menu-gap: #{pxToRem(16)};
+  --icon-size: #{pxToRem(64)};
+  --icon-border-radius: #{pxToRem(16)};
+  --icon-padding: #{pxToRem(12)};
+
+  border-radius: var(--border-radius);
+  cursor: grab;
+  height: var(--glass-size-h);
+  padding: var(--glass-padding);
+  position: relative;
+  transition: width var(--transition), height var(--transition),
+    padding var(--transition);
+  width: var(--glass-size-w);
+
+  &.is-expanded {
+    --glass-size-w: #{pxToRem(550)};
+    --glass-size-h: #{pxToRem(700)};
+    --glass-padding: #{pxToRem(40)};
+  }
+}
+
+.liquid-glass--bend {
+  backdrop-filter: blur(5px) saturate(110%);;
+  border-radius: var(--border-radius);
+  filter: url(#glass-blur);
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+  background: 
+    rgba(255, 255, 255, 0.5) 0%;
+}
+
+.liquid-glass--face {
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15), 0 0 12px rgba(0, 0, 0, 0.08);
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.liquid-glass--edge {
+  border-radius: var(--border-radius);
+  box-shadow: inset 3px 3px 3px 0 rgba(255, 255, 255, 0.45),
+    inset -3px -3px 3px 0 rgba(255, 255, 255, 0.45);
+  inset: 0;
+  position: absolute;
+  z-index: 2;
+}
+
+.liquid-glass__menus {
+  display: flex;
+  gap: var(--menu-gap);
+  transition: gap var(--transition);
+
+  .is-expanded & {
+    --menu-gap: #{pxToRem(32)};
+  }
+}
+
+.liquid-glass--fluid {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+
+
+

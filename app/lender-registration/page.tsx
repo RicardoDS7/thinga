@@ -67,7 +67,7 @@ export default function LenderOnboardingForm() {
   };
 
   const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
-  const MAX_FILE_SIZE_MB = 2;
+  const MAX_FILE_SIZE_MB = 5;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -104,6 +104,7 @@ export default function LenderOnboardingForm() {
   };
 
   const handleSubmit = async () => {
+    if (validateStep()) {
     try {
       const imageUrls: string[] = [];
       for (const file of formData.photos) {
@@ -144,6 +145,7 @@ export default function LenderOnboardingForm() {
       console.error("Error uploading form:", err);
       alert("Something went wrong. Please try again later.");
     }
+  }
   };
 
   const validateStep = () => {
@@ -224,14 +226,25 @@ export default function LenderOnboardingForm() {
   };
 
   const handleNext = () => {
-    if (validateStep()) {
-      setStep((s) => s + 1);
-    }
-  };
+  if (validateStep()) {
+    setStep((s) => {
+      const newStep = s + 1;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return newStep;
+    });
+  }
+};
 
-  const handleBack = () => {
-    if (step > 1) setStep(step - 1);
-  };
+const handleBack = () => {
+  if (step > 1) {
+    setStep((s) => {
+      const newStep = s - 1;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return newStep;
+    });
+  }
+};
+
 
   return (
     <div className="min-h-screen px-4 flex flex-col items-center justify-start bg-[var(--color-bg)]">
@@ -298,7 +311,7 @@ export default function LenderOnboardingForm() {
               required
             />
 
-            <label className="block font-medium">Photos (up to 3)</label>
+            <label className="block font-medium">Photos (Max. file size of {MAX_FILE_SIZE_MB}MB per photo)</label>
             <p className="text-sm text-gray-500 mb-2">
               High-quality photos from multiple angles help your item rent faster and build trust.
             </p>
@@ -596,7 +609,9 @@ export default function LenderOnboardingForm() {
           </div>
         )}
 
-        <div className="flex justify-between pt-6">
+        {/* Mobile Sticky Bottom CTA */}
+        <div className="fixed flex justify-between bottom-0 left-0 w-full bg-[var(--color-bg)] border-t border-gray-200 px-6 py-3 z-50">  
+          <div className="max-w-2xl mx-auto flex items-center justify-between w-full">
           {step > 1 ? (
             <button
               type="button"
@@ -626,6 +641,7 @@ export default function LenderOnboardingForm() {
               List My Product
             </button>
           )}
+          </div>
         </div>
       </form>
     </div>

@@ -18,7 +18,7 @@ export default function NewListings() {
             className="rounded-2xl bg-white"
           >
             <Link
-              href={`/rent/${item.id}`}>
+              href={`/listings/${item.id}`}>
               <div className="aspect-square w-full overflow-hidden rounded-xl mb-3">
                 <Image
                   src={item.image}
