@@ -8,9 +8,13 @@ import Protection from "./components/Rent/Insurance";
 import FaqSection from "./components/Rent/FAQ";
 import WhyRentSection from "./components/Rent/WhyRent";
 import TestimonialsSection from "./components/Rent/Testimonials";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 export default function RentersLandingPage() {
   return (
+    <>
+    <Header />
     <main className="bg-white text-gray-900">
         <Hero />
         <Suspense fallback={<div>Loading categories...</div>}>
@@ -22,6 +26,9 @@ export default function RentersLandingPage() {
         <WhyRentSection />
         <Protection />
         <FaqSection />
+        
     </main>
+    <Footer />
+    </>
   );
 }

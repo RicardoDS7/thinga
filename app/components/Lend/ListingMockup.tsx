@@ -19,23 +19,23 @@ interface Props {
 }
 
 export default function AddableItemGrid({ selected, onChange }: Props) {
-  // Only one category can be selected. Clicking again clears selection.
-  const toggleItem = (label: string) => {
-    onChange(selected === label ? null : label);
-  };
-
   return (
     <section className="py-10 px-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-6 text-center">
-        What would you like to rent out?
-      </h2>
+      {/* Hidden required field */}
+      <input
+        type="hidden"
+        name="category"
+        value={selected ?? ""}
+        required
+      />
+
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {items.map((item) => (
           <button
             key={item.label}
             type="button"
-            onClick={() => toggleItem(item.label)}
-            className={`flex flex-col items-center justify-center p-4 border rounded-xl transition ${
+            onClick={() => onChange(selected === item.label ? null : item.label)}
+            className={`cursor-pointer flex flex-col items-center justify-center p-4 border rounded-xl transition ${
               selected === item.label
                 ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white"
                 : "border-gray-300 bg-white hover:bg-gray-50"

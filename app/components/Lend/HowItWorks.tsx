@@ -5,7 +5,7 @@ const basePath = process.env.NODE_ENV === "production" ? "/thinga" : "";
 
 export default function HowItWorks() {
   return (
-    <section className="w-full py-20 px-6">
+    <section className="w-full pt-20 px-6 bg-[var(--color-bg)]">
       <div className="max-w-7xl mx-auto text-center">
         {/* Section Header */}
         <h2 className="text-3xl md:text-5xl font-bold">
@@ -24,6 +24,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Step Highlights */}
+        <div className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center py-10 max-w-7xl mx-auto">
           <div className="flex flex-col items-center">
             <div className="mb-4">
@@ -54,6 +55,7 @@ export default function HowItWorks() {
               Get help from our team or chat with experienced users when needed.
             </p>
           </div>
+        </div>
         </div>
 
     </section>

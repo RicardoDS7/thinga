@@ -31,11 +31,30 @@ export const onNewListing = onDocumentCreated(
       to: gmailAddress.value(),
       subject: `New Listing: ${data.title || "Untitled"}`,
       text: `
-A new product has just been listed on Thinga:
+A new product has just been requested to listed on Thingo:
 
+## Product Details
 • Title:    ${data.title}
 • Category: ${data.category}
-• Price:    ${data.price}
+• Description: ${data.description || "No description provided"}
+• Condition: ${data.condition || "Not specified"}
+• Images:   ${data.photos}
+
+• Daily Rental Price:    ${data.price || "Not specified"}
+• Deposit:  ${data.depositAmount || "No deposit required"}
+• Insurance: ${data.insurance ? "Yes" : "No"}
+
+
+## User Details
+• Full Name:     ${data.fullName || "Unknown"}
+• Email:    ${data.email || "Unknown"}
+• Phone:    ${data.phone || "Unknown"}
+• Address:  ${data.streetAddress || "Unknown"}
+• City:     ${data.city || "Unknown"}
+• Postal Code: ${data.postalcode || "Unknown"}
+• Province:  ${data.province || "Unknown"}
+• Consent:  ${data.consent ? "Yes" : "No"}
+
       `.trim(),
     });
   }
