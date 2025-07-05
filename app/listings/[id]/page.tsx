@@ -1,25 +1,28 @@
+// app/listings/[id]/page.tsx
 import { mockListings } from "@/app/data/mockListings";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
-/* ----------  Static Params  ---------- */
+/* static params stay the same */
 export function generateStaticParams() {
   return mockListings.map(({ id }) => ({ id }));
 }
 
-/* ----------  Metadata  ---------- */
-export function generateMetadata(
-  { params }: { params: { id: string } }
-): Metadata {
-  const listing = mockListings.find((l) => l.id === params.id);
+/* now async, and params is awaited */
+export async function generateMetadata(
+  { params }: { params: Promise<{ id: string }> }
+): Promise<Metadata> {
+  const { id } = await params;
+  const listing = mockListings.find((l) => l.id === id);
   return { title: listing?.title ?? "Listing Not Found" };
 }
 
-/* ----------  Page Component  ---------- */
-export default function ListingPage(
-  { params }: { params: { id: string } }
+/* make page async, await params */
+export default async function ListingPage(
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const listing = mockListings.find((l) => l.id === params.id);
+  const { id } = await params;
+  const listing = mockListings.find((l) => l.id === id);
   if (!listing) return notFound();
 
   return (

@@ -105,7 +105,7 @@ export default function LenderOnboardingForm() {
 
   const handleSubmit = async () => {
     try {
-      let imageUrls: string[] = [];
+      const imageUrls: string[] = [];
       for (const file of formData.photos) {
         const storageRef = ref(storage, `productImages/${Date.now()}-${file.name}`);
         const snapshot = await uploadBytes(storageRef, file);
@@ -258,7 +258,7 @@ export default function LenderOnboardingForm() {
         {step === 2 && (
           <div className="mt-6 space-y-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
-              Tell us more about what you're lending?
+              Tell us more about what you&apos;re lending?
             </h2>
 
             <div className="space-y-2">
@@ -341,7 +341,7 @@ export default function LenderOnboardingForm() {
 
             {/* Tip */}
             <p className="text-sm sm:text-base text-gray-500">
-              Tip: {Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR" }).format(514)}. You’ll set a weekend price next.
+              Tip: {Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR" }).format(514)}. You&apos;ll set a weekend price next.
             </p>
 
             {/* Price Input */}
@@ -589,7 +589,7 @@ export default function LenderOnboardingForm() {
                   className="cursor-pointer mt-1"
                 />
                 <label htmlFor="consent" className="text-sm">
-                  I’m interested in being one of the first lenders on Thingo. You can contact me for feedback or early access perks.
+                  I&apos;m interested in being one of the first lenders on Thingo. You can contact me for feedback or early access perks.
                 </label>
               </div>
             </div>
