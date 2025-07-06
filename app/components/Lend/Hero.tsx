@@ -6,11 +6,11 @@ import Image from "next/image";
 const basePath = process.env.NODE_ENV === "production" ? "/thinga" : "";
 
 const popularItems = [
-  { label: "Tool Set", image: `${basePath}/tool-set.png`, dailyEarnings: 200 },
-  { label: "Evening Dress", image: `${basePath}/dress.png`, dailyEarnings: 300 },
-  { label: "GoPro", image: `${basePath}/camera.png`, dailyEarnings: 200 },
-  { label: "Tent", image: `${basePath}/camping-gear.png`, dailyEarnings: 150 },
-  { label: "Podcast Studio", image: `${basePath}/podcast-studio.png`, dailyEarnings: 1500 },
+  { label: "Tool Set", image: `/tool-set.png`, dailyEarnings: 200 },
+  { label: "Evening Dress", image: `/dress.png`, dailyEarnings: 300 },
+  { label: "GoPro", image: `/camera.png`, dailyEarnings: 200 },
+  { label: "Tent", image: `/camping-gear.png`, dailyEarnings: 150 },
+  { label: "Podcast Studio", image: `/podcast-studio.png`, dailyEarnings: 1500 },
 ];
 
 function getSliderBackground(days: number, min = 1, max = 10) {
