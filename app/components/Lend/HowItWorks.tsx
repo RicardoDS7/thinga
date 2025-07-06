@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function HowItWorks() {
   return (
-    <section className="w-full pt-20 px-6 bg-[var(--color-bg)]">
+    <section className="w-full pt-20 bg-[var(--color-bg)]">
       <div className="max-w-7xl mx-auto text-center">
         {/* Section Header */}
         <h2 className="text-3xl md:text-5xl font-bold">
@@ -13,13 +13,13 @@ export default function HowItWorks() {
         {/* Mockups or phone visuals */}
         <div className="flex flex-col md:flex-row justify-center items-center h-128 overflow-hidden relative w-full md:w-2/3 align-center mx-auto mt-10 mb-0">
           <Image
-            src={`Mock-up.png`}
+            src={`/Mock-up.png`}
             alt="List your item"
             fill
             className="object-cover object-top"
           />
         </div>
-        </div>
+      </div>
 
         {/* Step Highlights */}
         <div className="bg-white">

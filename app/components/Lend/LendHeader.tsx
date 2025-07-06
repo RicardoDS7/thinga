@@ -39,13 +39,23 @@ export default function LendHeader() {
       </div>
 
       {/* Mobile Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 w-full md:hidden bg-[var(--color-bg)] border-t border-gray-200 px-6 py-3 z-50">
-        <Link
-          href="/lender-registration"
-          className="block w-full text-center bg-[var(--color-primary)] text-white font-medium text-base py-3 rounded-full shadow-md hover:brightness-110 transition"
-        >
-          Get Started
-        </Link>
+      <div className="fixed bottom-0 left-0 w-full md:hidden z-50 rounded-tr-[30px]! rounded-tl-[30px]!">
+        <div className="liquid-glass relative overflow-hidden w-full h-full px-6 py-3 rounded-tr-[30px]! rounded-tl-[30px]!">
+          {/* Blurred background layer */}
+          <div className="liquid-glass--face absolute inset-0 z-0"></div>
+          <div className="liquid-glass--bend absolute inset-0 z-10"></div>
+          <div className="liquid-glass--edge absolute inset-0 z-10"></div>
+
+          {/* Header content stays crisp, not blurred */}
+          <div className="relative z-20 px-6 py-4">
+            <Link
+              href="/lender-registration"
+              className="block w-full text-center bg-[var(--color-primary)] text-white font-medium text-base py-3 rounded-full shadow-md hover:brightness-110 transition"
+            >
+              Get Started
+            </Link>
+          </div>
+        </div>
       </div>
     </>
   );
