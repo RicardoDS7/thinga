@@ -25,7 +25,8 @@ interface FormDataType {
   city: string;
   province: string;
   postalcode: "",
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   consent: boolean;
@@ -47,7 +48,8 @@ export default function LenderOnboardingForm() {
     city: "",
     province: "",
     postalcode: "",
-    fullName: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     consent: false,
@@ -137,7 +139,8 @@ export default function LenderOnboardingForm() {
         city: "",
         province: "",
         postalcode: "",
-        fullName: "",
+        firstName: "",
+        lastName: "",
         email: "",
         phone: "",
         consent: false,
@@ -214,7 +217,11 @@ export default function LenderOnboardingForm() {
         break;
 
       case 5:
-        if (!formData.fullName.trim()) {
+        if (!formData.firstName.trim()) {
+          alert("Please enter your full name.");
+          return false;
+        }
+        if (!formData.lastName.trim()) {
           alert("Please enter your full name.");
           return false;
         }
@@ -568,14 +575,29 @@ const handleBack = () => {
             </h2>
 
             <div className="space-y-2">
-              <label className="block font-medium">Full Name</label>
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-              />
+              <div className="flex-1 flex-col sm:flex-row items-center gap-2 space-y-2">
+                <div className="flex flex-col items-start gap-2">
+                  <label className="block font-medium">First Name</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                  />
+                </div>
+
+                <div className="flex flex-col items-start gap-2">
+                  <label className="block font-medium">Last Name</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                  />
+                </div>
+              </div>
 
               <label className="block font-medium">Email</label>
               <input
