@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const basePath = process.env.NODE_ENV === "production" ? "/thinga" : "";
-
 const popularItems = [
   { label: "Tool Set", image: `/tool-set.png`, dailyEarnings: 200 },
   { label: "Evening Dress", image: `/dress.png`, dailyEarnings: 300 },

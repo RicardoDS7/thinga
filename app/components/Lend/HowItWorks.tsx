@@ -1,8 +1,6 @@
 import { Calendar, Handshake, Tag } from "lucide-react";
 import Image from "next/image";
 
-const basePath = process.env.NODE_ENV === "production" ? "/thinga" : "";
-
 export default function HowItWorks() {
   return (
     <section className="w-full pt-20 px-6 bg-[var(--color-bg)]">
