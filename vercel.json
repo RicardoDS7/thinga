@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "ignoreCommand": "echo 'Skipping functions build...'", 
+  "framework": "nextjs"
+}
