@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { mockListings } from "../data/mockListings";
+import { getListings } from "../lib/getListings";
+import { Listing } from "../types/listings";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,21 +15,36 @@ export default function ListingsGrid() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
 
-  const categories = Array.from(new Set(mockListings.map((item) => item.category)));
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  console.log("categoryParam from URL:", categoryParam);
-  console.log("matching slugs from listings:", mockListings.map(item => slugify(item.category)));
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const data = await getListings();
+        setListings(data);
+      } catch (error) {
+        console.error("Error fetching listings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // ✅ This ensures we filter based on slug
+    fetchListings();
+  }, []);
+
+  // Create unique categories
+  const categories = Array.from(new Set(listings.map((item) => item.category)));
+
+  // Filter based on slugified category
   const filteredListings = categoryParam
-    ? mockListings.filter(
-        (item) => slugify(item.category) === categoryParam
-      )
-    : mockListings;
+    ? listings.filter((item) => slugify(item.category) === categoryParam)
+    : listings;
+
+  if (loading) return <div className="text-center py-10">Loading listings...</div>;
 
   return (
     <div className="px-4 pb-10 max-w-7xl mx-auto">
-      
       {/* Filter Buttons */}
       <div className="flex flex-wrap gap-3 justify-center mb-6">
         <Link
@@ -54,8 +71,7 @@ export default function ListingsGrid() {
               }`}
             >
               {category}
-          </Link>
-
+            </Link>
           );
         })}
       </div>
@@ -68,7 +84,7 @@ export default function ListingsGrid() {
             className="border rounded-3xl p-4 shadow hover:shadow-md transition"
           >
             <Image
-              src={item.image}
+              src={item.photos?.[0] || "/placeholder.jpg"}
               alt={item.title}
               width={300}
               height={200}
@@ -76,9 +92,11 @@ export default function ListingsGrid() {
             />
             <h3 className="mt-2 font-semibold text-lg">{item.title}</h3>
             <p className="text-sm text-gray-600">
-              {item.category} · {item.location}
+              {item.category} · {item.city}
             </p>
-            <p className="text-primary font-bold mt-1">R{item.price}/day</p>
+            <p className="text-primary font-bold mt-1">
+              R{Number(item.price)}/day
+            </p>
             <button className="mt-3 w-full bg-primary text-white py-2 rounded-lg">
               I want to rent this
             </button>

@@ -1,14 +1,22 @@
 import type { NextConfig } from "next";
 
-const isProd = process.env.NODE_ENV === "production";
-
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath: isProd ? "/thinga" : "", // 👈 Apply only in production
-  assetPrefix: isProd ? "/thinga" : "", // 👈 Apply only in production
+
   trailingSlash: true,
+
   images: {
-    unoptimized: true,
+    // ✅ If you're using `next/image` and hosting external images (like from Firebase), allow them:
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.firebasestorage.googleapis.com",
+      },
+    ],
+  },
+
+  // ✅ Optionally enable experimental features if needed
+  experimental: {
+    serverActions: {}, // if you're using server actions
   },
 };
 

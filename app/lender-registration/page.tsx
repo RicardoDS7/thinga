@@ -29,6 +29,7 @@ interface FormDataType {
   email: string;
   phone: string;
   consent: boolean;
+  approved?: boolean; // Optional field for future use
 }
 
 export default function LenderOnboardingForm() {
@@ -50,6 +51,7 @@ export default function LenderOnboardingForm() {
     email: "",
     phone: "",
     consent: false,
+    approved: false, // Default to false, can be set to true later if needed
   });
 
   const [isFocused, setIsFocused] = useState(false);
