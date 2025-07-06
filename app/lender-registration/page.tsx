@@ -141,6 +141,7 @@ export default function LenderOnboardingForm() {
         email: "",
         phone: "",
         consent: false,
+        approved: false, 
       });
       setPhotoPreviews([]);
     } catch (err) {

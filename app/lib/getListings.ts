@@ -6,13 +6,20 @@ import {
   getDoc,
   getDocs,
   query,
+  where,
   orderBy,
   limit,
 } from "firebase/firestore";
 import { Listing } from "@/app/types/listings";
 
 export async function getListings(): Promise<Listing[]> {
-  const q = query(collection(db, "listings"), orderBy("timestamp", "desc"), limit(10));
+  const q = query(
+    collection(db, "listings"),
+    where("approved", "==", true),             // ✅ Only get approved listings
+    orderBy("timestamp", "desc"),
+    limit(10)
+  );
+
   const snapshot = await getDocs(q);
 
   return snapshot.docs.map(doc => ({
