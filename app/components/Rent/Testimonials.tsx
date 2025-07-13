@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 
 const testimonials = [
   {
@@ -36,16 +35,21 @@ export default function TestimonialsSection() {
   return (
     <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Background image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/background.png" // Replace with your background path
-          alt="Testimonials background"
-          fill
-          className="object-cover object-center"
-          priority
+      {["md:hidden", "hidden md:block"].map((className, idx) => (
+        <div
+          key={className}
+          className={`absolute inset-0 z-0 ${className}`}
+          style={{
+            backgroundImage: "url('/Hero-Background.png')",
+            backgroundPosition: idx === 0 ? "center bottom" : "right bottom",
+            backgroundRepeat: idx === 0 ? "repeat-y" : "repeat-x",
+            backgroundSize: idx === 0 ? "auto 50%" : "auto 100%",
+            backgroundPositionX: idx === 0 ? "70%" : "25%",
+            backgroundPositionY: idx === 0 ? "8px" : "8px",
+          }}
         />
-        <div className="absolute inset-0 bg-[var(--color-accent)]/90 z-10" />
-      </div>
+      ))}
+      <div className="absolute inset-0 bg-[var(--color-accent)]/90 z-10" />
 
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto">

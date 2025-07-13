@@ -51,7 +51,7 @@ export default function ListingsGrid() {
           href="/listings"
           className={`px-4 py-2 rounded-full text-sm border ${
             categoryParam === null
-              ? "bg-primary text-white border-primary"
+              ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
               : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
           }`}
         >
@@ -66,7 +66,7 @@ export default function ListingsGrid() {
               href={`/listings?category=${slug}`}
               className={`px-4 py-2 rounded-full text-sm border ${
                 categoryParam === slug
-                  ? "bg-primary text-white border-primary"
+                  ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
                   : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
               }`}
             >
@@ -79,27 +79,37 @@ export default function ListingsGrid() {
       {/* Grid of Listings */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {filteredListings.map((item) => (
-          <div
-            key={item.id}
-            className="border rounded-3xl p-4 shadow hover:shadow-md transition"
-          >
-            <Image
-              src={item.photos?.[0] || "/placeholder.jpg"}
-              alt={item.title}
-              width={300}
-              height={200}
-              className="rounded-lg w-full object-cover"
-            />
-            <h3 className="mt-2 font-semibold text-lg">{item.title}</h3>
-            <p className="text-sm text-gray-600">
-              {item.category} · {item.city}
-            </p>
-            <p className="text-primary font-bold mt-1">
-              R{Number(item.price)}/day
-            </p>
-            <button className="mt-3 w-full bg-primary text-white py-2 rounded-lg">
-              I want to rent this
-            </button>
+          <div key={item.id} className="rounded-xl bg-white shadow hover:shadow-lg transition overflow-hidden flex flex-col">
+            <Link href={`/listings/${item.id}`}>
+                <div className="relative w-full aspect-square bg-gray-100 overflow-hidden">
+                  {/* Blurred background */}
+                  <Image
+                    src={item.photos[0]}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    className="object-cover w-full h-full blur-md scale-105"
+                    aria-hidden="true"
+                    style={{ zIndex: 0 }}
+                  />
+                  {/* Main image */}
+                  <Image
+                    src={item.photos[0]}
+                    alt={item.title}
+                    width={400}
+                    height={400}
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    className="object-contain w-full h-full"
+                    priority
+                    style={{ zIndex: 1, position: "absolute", top: 0, left: 0 }}
+                  />
+                </div>
+              <div className="p-3 flex-1 flex flex-col justify-between">
+                <h3 className="text-lg font-medium truncate">{item.title}</h3>
+                <p className="text-sm text-gray-500">{item.category} · {item.city}, {item.province}</p>
+                <p className="text-primary font-bold mt-1">R{item.price}/day</p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>

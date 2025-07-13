@@ -9,7 +9,9 @@ export type Listing = {
   category: string;
   city: string;
   province: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
+  description: string;
   timestamp: string;
 };
 
