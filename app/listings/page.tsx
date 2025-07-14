@@ -4,7 +4,7 @@ import ListingsGrid from "../components/ListingGrid";
 
 export default function ListingsPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen">
       <section className="max-w-6xl mx-auto px-4 py-8">
         <header className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between">
           <div>

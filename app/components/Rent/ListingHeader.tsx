@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Header() {
+export default function ListingHeader() {
 
   const [scrolled, setScrolled] = useState(false);
 
@@ -37,27 +37,6 @@ export default function Header() {
             Become a Lender
           </Link>
         </header>
-      </div>
-
-
-      {/* Mobile Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 w-full md:hidden z-50 rounded-tr-[30px]! rounded-tl-[30px]!">
-        <div className="liquid-glass relative overflow-hidden w-full h-full px-6 py-3 rounded-tr-[30px]! rounded-tl-[30px]!">
-          {/* Blurred background layer */}
-          <div className="liquid-glass--face absolute inset-0 z-0"></div>
-          <div className="liquid-glass--bend absolute inset-0 z-10"></div>
-          <div className="liquid-glass--edge absolute inset-0 z-10"></div>
-
-          {/* Header content stays crisp, not blurred */}
-          <div className="relative z-20 px-6 py-4">
-            <Link
-              href="/lend"
-              className="block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-3 rounded-full shadow-md hover:brightness-110 transition"
-            >
-              Become a Lender
-            </Link>
-          </div>
-        </div>
       </div>
 
     </>

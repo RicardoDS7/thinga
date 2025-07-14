@@ -90,7 +90,7 @@ export default function HeroSection() {
 
         <button
         onClick={handleSearch}
-        className="w-full cursor-pointer sm:w-auto bg-[var(--color-accent)] hover:brightness-110 text-white font-semibold px-6 py-4 rounded-full transition duration-200"
+        className="w-full cursor-pointer sm:w-auto bg-gradient-to-r from-rose-500 to-pink-500 hover:brightness-110 text-white font-semibold px-6 py-4 rounded-full transition duration-200"
         >
         Search
         </button>

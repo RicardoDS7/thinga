@@ -31,7 +31,7 @@ export default function LendHeader() {
           </Link>
           <Link
             href="/lender-registration"
-            className="hidden md:block bg-[var(--color-primary)] text-white font-medium text-base py-2 px-6 rounded-full shadow-sm hover:brightness-110 transition"
+            className="hidden md:block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-2 px-6 rounded-full shadow-sm hover:brightness-110 transition"
           >
             Get Started
           </Link>
@@ -50,7 +50,7 @@ export default function LendHeader() {
           <div className="relative z-20 px-6 py-4">
             <Link
               href="/lender-registration"
-              className="block w-full text-center bg-[var(--color-primary)] text-white font-medium text-base py-3 rounded-full shadow-md hover:brightness-110 transition"
+              className="block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-3 rounded-full shadow-md hover:brightness-110 transition"
             >
               Get Started
             </Link>

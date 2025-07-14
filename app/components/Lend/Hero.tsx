@@ -27,14 +27,14 @@ export default function HeroSection() {
         <div className="w-full md:w-1/2 text-center md:text-left">
           <p className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-black leading-tight max-w-[15ch] mx-auto md:mx-0">
             You could earn{" "}
-            <span className="text-[var(--color-primary)]">
+            <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
               R{selectedItem.dailyEarnings * days}
             </span>{" "}
             by renting out your{" "}
-            <span className="text-[var(--color-accent)]">
+            <span className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent">
               {selectedItem.label}
             </span>{" "}
-            on <span className="text-[var(--color-primary)]">thingo<span className="text-[var(--color-accent)]">.</span></span>
+            on <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">thingo<span className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent">.</span></span>
           </p>
 
           <input
@@ -59,8 +59,8 @@ export default function HeroSection() {
                 onClick={() => setSelectedIndex(index)}
                 className={`cursor-pointer text-white px-4 py-2 rounded-full border text-sm font-medium transition-colors ${
                   index === selectedIndex
-                    ? "bg-[var(--color-accent)] border-[var(--color-accent)]"
-                    : "bg-[var(--color-primary)] border-[var(--color-primary)] hover:brightness-110"
+                    ? "bg-gradient-to-r from-rose-500 to-pink-500"
+                    : "bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110"
                 }`}
               >
                 {item.label}

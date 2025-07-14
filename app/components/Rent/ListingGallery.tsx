@@ -58,7 +58,7 @@ export default function ListingGallery({ images, title }: { images: string[]; ti
                   alt={`${title} ${i + 1}`}
                   fill
                   sizes="80px"
-                  className="object-contain blur-lg scale-105"
+                  className="object-cover blur-lg scale-105"
                   aria-hidden="true"
                   style={{ zIndex: 0 }}
                 />
@@ -68,7 +68,7 @@ export default function ListingGallery({ images, title }: { images: string[]; ti
                   alt={`${title} ${i + 1}`}
                   fill
                   sizes="80px"
-                  className="object-contain"
+                  className="object-cover"
                   priority
                   style={{ zIndex: 1, position: "absolute", top: 0, left: 0 }}
                 />

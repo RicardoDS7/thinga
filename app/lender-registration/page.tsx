@@ -653,7 +653,7 @@ const handleBack = () => {
             <button
               type="button"
               onClick={handleNext}
-              className="cursor-pointer text-center bg-[var(--color-primary)] text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition"
+              className="cursor-pointer text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition"
             >
               Next
             </button>
@@ -661,7 +661,7 @@ const handleBack = () => {
             <button
               type="button"
               onClick={handleSubmit}
-              className="cursor-pointer text-center bg-[var(--color-primary)] text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition"
+              className="cursor-pointer text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition"
             >
               List My Product
             </button>

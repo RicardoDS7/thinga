@@ -49,9 +49,9 @@ export default function ListingsGrid() {
       <div className="flex flex-wrap gap-3 justify-center mb-6">
         <Link
           href="/listings"
-          className={`px-4 py-2 rounded-full text-sm border ${
+          className={`px-4 py-2 rounded-full text-sm ${
             categoryParam === null
-              ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
+              ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white"
               : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
           }`}
         >
@@ -64,9 +64,9 @@ export default function ListingsGrid() {
             <Link
               key={slug}
               href={`/listings?category=${slug}`}
-              className={`px-4 py-2 rounded-full text-sm border ${
+              className={`px-4 py-2 rounded-full text-sm ${
                 categoryParam === slug
-                  ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
+                  ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white"
                   : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
               }`}
             >
