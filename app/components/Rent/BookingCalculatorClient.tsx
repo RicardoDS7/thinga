@@ -492,7 +492,7 @@ export const BookingClient: React.FC<BookingClientProps> = ({
 
       {/* Reservation Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-[var(--color-bg)]/90 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-2xl">
@@ -500,7 +500,7 @@ export const BookingClient: React.FC<BookingClientProps> = ({
                 <h2 className="text-xl font-semibold text-gray-900">Complete Your Reservation</h2>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  className="cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors"
                   disabled={isSubmitting}
                 >
                   <X className="w-5 h-5 text-gray-400" />
@@ -609,7 +609,7 @@ export const BookingClient: React.FC<BookingClientProps> = ({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-3 px-6 rounded-lg hover:brightness-110 transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="cursor-pointer w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-3 px-6 rounded-lg hover:brightness-110 transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
                     <>

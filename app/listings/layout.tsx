@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import LendHeader from "@/app/components/Lend/LendHeader";
+import OnboardingHeader from "../components/Lend/OnboardingHeader";
 
 export const metadata: Metadata = {
   title: "Lend on Thingo",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function LendLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-gray-800">
-      <LendHeader />
+      <OnboardingHeader />
       
       {/* Main content area */}
       <main className="mt-20 mb-6">{children}</main>
