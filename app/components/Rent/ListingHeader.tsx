@@ -32,7 +32,7 @@ export default function ListingHeader() {
           </Link>
           <Link
             href="/lend"
-            className="hidden md:block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-2 px-6 rounded-full shadow-sm hover:brightness-110 transition"
+            className="hidden md:block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-2 px-6 rounded-full shadow-sm hover:shadow-lg transform hover:scale-105 transition-all duration-300"
           >
             Become a Lender
           </Link>

@@ -49,7 +49,7 @@ export default function Categories() {
   };
 
   return (
-    <section className="pt-16 px-4 max-w-7xl mx-auto">
+    <section id="categories" className="pt-16 px-4 max-w-7xl mx-auto">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-800 mb-6 text-shadow">Explore Categories</h2>
 
       {/* Mobile/Tablet: Scrollable horizontally */}

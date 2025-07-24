@@ -59,10 +59,10 @@ export default function HowItWorksSection() {
             >
               {/* Card */}
               <div className="bg-white rounded-3xl p-8 h-full border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
-                {/* Icon Container */}
+                {/* Icon Container
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mb-6 transform transition-transform duration-300 group-hover:rotate-3`}>
                   <span className="text-2xl filter brightness-110">{step.icon}</span>
-                </div>
+                </div> */}
 
                 {/* Step Number */}
                 <div className="flex items-center mb-4">
@@ -99,7 +99,9 @@ export default function HowItWorksSection() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-16">
-          <button className="bg-gradient-to-r from-rose-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+          <button 
+          onClick={() => window.location.href = "/listings"}
+          className="cursor-pointer bg-gradient-to-r from-rose-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
             Start Renting Now
           </button>
         </div>

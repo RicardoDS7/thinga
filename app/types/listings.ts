@@ -9,6 +9,7 @@ export type Listing = {
   category: string;
   city: string;
   province: string;
+  depositAmount?: number; // Optional deposit amount
   firstName: string;
   lastName: string;
   description: string;

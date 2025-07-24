@@ -1,6 +1,5 @@
 import React from "react";
 import type { Metadata } from "next";
-import Footer from "@/app/components/Footer";
 import LendHeader from "@/app/components/Lend/LendHeader";
 
 export const metadata: Metadata = {

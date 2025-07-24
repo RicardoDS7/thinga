@@ -32,7 +32,7 @@ export default function Header() {
           </Link>
           <Link
             href="/lend"
-            className="hidden md:block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-2 px-6 rounded-full shadow-sm hover:brightness-110 transition"
+            className="hidden md:block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-2 px-6 rounded-full shadow-sm hover:shadow-lg transform hover:scale-105 transition-all duration-300"
           >
             Become a Lender
           </Link>
@@ -52,7 +52,7 @@ export default function Header() {
           <div className="relative z-20 px-6 py-4">
             <Link
               href="/lend"
-              className="block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-3 rounded-full shadow-md hover:brightness-110 transition"
+              className="block w-full text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-3 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300"
             >
               Become a Lender
             </Link>

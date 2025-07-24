@@ -18,9 +18,9 @@ export default function Footer() {
             Explore
           </h3>
           <ul className="space-y-2 text-sm">
-            <li><Link href="/browse" className="hover:underline">Browse Items</Link></li>
-            <li><Link href="/rent" className="hover:underline">List an Item</Link></li>
-            <li><Link href="/categories" className="hover:underline">Categories</Link></li>
+            <li><Link href="/listings" className="hover:underline">Browse Items</Link></li>
+            <li><Link href="/lend-registration" className="hover:underline">List an Item</Link></li>
+            <li><Link href="#categories" className="hover:underline">Categories</Link></li>
           </ul>
         </div>
 
@@ -30,9 +30,7 @@ export default function Footer() {
             Help
           </h3>
           <ul className="space-y-2 text-sm">
-            <li><Link href="/faq" className="hover:underline">FAQs</Link></li>
-            <li><Link href="/support" className="hover:underline">Contact Support</Link></li>
-            <li><Link href="/insurance" className="hover:underline">thingoProtect</Link></li>
+            <li><Link href="#FAQ" className="hover:underline">FAQs</Link></li>
           </ul>
         </div>
 
@@ -42,8 +40,8 @@ export default function Footer() {
             Legal
           </h3>
           <ul className="space-y-2 text-sm">
-            <li><Link href="/terms" className="hover:underline">Terms of Service</Link></li>
-            <li><Link href="/privacy" className="hover:underline">Privacy Policy</Link></li>
+            <li><Link href="#" className="hover:underline">Terms of Service</Link></li>
+            <li><Link href="#" className="hover:underline">Privacy Policy</Link></li>
           </ul>
         </div>
       </div>

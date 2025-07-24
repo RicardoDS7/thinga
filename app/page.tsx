@@ -4,7 +4,6 @@ import Categories from "./components/Rent/Categories";
 import NewListings from "./components/Rent/NewListings"
 import Hero from "./components/Rent/Hero";
 import HowItWorks from "./components/Rent/HowItWorks";
-import Protection from "./components/Rent/Insurance";
 import FaqSection from "./components/Rent/FAQ";
 import WhyRentSection from "./components/Rent/WhyRent";
 // import TestimonialsSection from "./components/Rent/Testimonials";
@@ -24,7 +23,6 @@ export default function RentersLandingPage() {
         {/* <TestimonialsSection /> */}
         <HowItWorks />
         <WhyRentSection />
-        <Protection />
         <FaqSection />
         
     </main>
