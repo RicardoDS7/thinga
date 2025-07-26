@@ -20,23 +20,35 @@ const protectionItems = [
 
 export default function Protection() {
   return (
-    <section className="bg-white py-20 px-6 text-gray-900">
+    <section className="bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 text-gray-900">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Whatever you rent, you&apos;re always protected
+        <h2 className="text-3xl text-gray-700! sm:text-4xl lg:text-5xl font-bold text-center mb-12 lg:mb-16 leading-tight">
+          Whatever you lend out, you&apos;re always{" "}
+          <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
+            protected
+          </span>
         </h2>
 
-        <div className="space-y-8">
-          {protectionItems.map((item) => (
-            <div key={item.title} className="flex items-start gap-4">
-              <CheckCircle
-                className="text-[var(--color-primary)] mt-1 flex-shrink-0"
-                size={24}
+        <div className="space-y-6 lg:space-y-8">
+          {protectionItems.map((item, index) => (
+            <div 
+              key={item.title} 
+              className="flex items-start gap-4 p-4 sm:p-6 rounded-2xl border border-gray-100 hover:border-emerald-200 hover:bg-emerald-50/30 transition-all duration-300 group"
+            >
+              <div className="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors duration-300">
+                <CheckCircle
+                  className="text-emerald-600 flex-shrink-0"
+                  size={24}
                 />
+              </div>
 
-              <div>
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-normal text-gray-700 mt-1">{item.description}</p>
+              <div className="flex-1">
+                <h3 className="text-xl lg:text-2xl font-semibold mb-2 text-gray-900">
+                  {item.title}
+                </h3>
+                <p className="text-base lg:text-lg text-gray-700 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             </div>
           ))}

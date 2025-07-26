@@ -98,11 +98,8 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-10 bg-[var(--color-primary)]/80" />
       <div className="relative z-20 w-full max-w-4xl mx-auto text-center space-y-6 pt-12">
         <h1 className="text-3xl !text-white sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-          Rent instead of buying
+          Rent anything, anywhere, anytime.
         </h1>
-        <p className="text-lg sm:text-xl md:text-2xl text-white">
-          Nearby and at times that suit you
-        </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2 px-2">
           <div className="flex w-full sm:w-auto flex-grow items-center bg-white rounded-full shadow-lg px-4 py-4 focus-within:ring-2 focus-within:ring-white/50 transition-all duration-200">

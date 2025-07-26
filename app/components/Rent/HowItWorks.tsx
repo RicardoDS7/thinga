@@ -39,7 +39,7 @@ export default function HowItWorksSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-900 mb-4 tracking-tight">
-            How Thingo Works
+            How It Works
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Rent what you need, when you need it. It&apos;s that simple.

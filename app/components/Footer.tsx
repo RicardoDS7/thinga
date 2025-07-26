@@ -6,15 +6,15 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Branding */}
         <div>
-          <h2 className="text-3xl">thingo<span className="text-[var(--color-accent)]">.</span></h2>
+          <h2 className="text-3xl">LENDABA</h2>
           <p className="text-sm mt-2 text-gray-600">
-            Rent anything, from anyone. Secure, simple, and insured.
+            Rent anything, anywhere, anytime.
           </p>
         </div>
 
         {/* Explore */}
         <div>
-          <h3 className="text-sm font-semibold mb-3 uppercase tracking-wide text-gray-700">
+          <h3 className="text-base font-semibold mb-3 uppercase tracking-wide text-gray-700">
             Explore
           </h3>
           <ul className="space-y-2 text-sm">
@@ -26,7 +26,7 @@ export default function Footer() {
 
         {/* Help */}
         <div>
-          <h3 className="text-sm font-semibold mb-3 uppercase tracking-wide text-gray-700">
+          <h3 className="text-bse font-semibold mb-3 uppercase tracking-wide text-gray-700">
             Help
           </h3>
           <ul className="space-y-2 text-sm">
@@ -36,7 +36,7 @@ export default function Footer() {
 
         {/* Legal */}
         <div>
-          <h3 className="text-sm font-semibold mb-3 uppercase tracking-wide text-gray-700">
+          <h3 className="text-base font-semibold mb-3 uppercase tracking-wide text-gray-700">
             Legal
           </h3>
           <ul className="space-y-2 text-sm">
@@ -48,7 +48,7 @@ export default function Footer() {
 
       {/* Footer Bottom */}
       <div className="border-t mt-10 pt-6 text-xs text-center text-gray-500">
-        &copy; {new Date().getFullYear()} thingo. All rights reserved.
+        &copy; {new Date().getFullYear()} lendaba. All rights reserved.
       </div>
     </footer>
   );

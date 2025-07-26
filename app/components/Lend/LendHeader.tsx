@@ -26,7 +26,7 @@ export default function LendHeader() {
         <header className="mx-auto max-w-screen-xl flex justify-between items-center px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
             <h1 className="text-3xl">
-              thingo<span className="text-[var(--color-accent)]">.</span>
+              LENDABA
             </h1>
           </Link>
           <Link
