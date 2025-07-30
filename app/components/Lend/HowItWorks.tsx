@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function HowItWorks() {
   return (
-    <section className="w-full pt-20 bg-[var(--color-bg)]">
+    <section id="how-it-works" className="w-full pt-20 bg-[var(--color-bg)]">
       <div className="max-w-7xl mx-auto px-6 text-center">
         {/* Section Header */}
         <h2 className="text-3xl md:text-5xl font-bold">
