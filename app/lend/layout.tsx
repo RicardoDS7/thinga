@@ -6,8 +6,8 @@ import LendHeader from "@/app/components/Lend/LendHeader";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Lend on Thingo",
-  description: "Earn money by renting out your items on Thingo.",
+  title: "Become a Lender",
+  description: "Earn money by renting out your items on Lendaba.",
 };
 
 export default function LendLayout({ children }: { children: React.ReactNode }) {

@@ -5,9 +5,14 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    question: "What happens if someone damages my item?",
+    question: "What happens if someone damages or loses my item?",
     answer:
-      "thingo provides platform-backed damage protection up to R5,000 for eligible items when you submit photo proof within 48 hours of return.",
+      "Lendaba provides platform-backed protection for eligible items covering accidental damage, loss, or theft—up to R50,000. To qualify, you must submit a claim with supporting details within 48 hours of the item’s expected return.",
+  },
+  {
+    question: "Does Lendaba offer insurance for my item?",
+    answer:
+      "Yes. Every eligible rental is covered by our platform insurance, protecting lenders against theft, loss, or serious damage up to R50,000. Deposits still apply for minor issues and help prevent misuse.",
   },
   {
     question: "How do deposits work?",

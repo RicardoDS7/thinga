@@ -1,11 +1,5 @@
 import React from "react";
-import type { Metadata } from "next";
 import ListingHeader from "@/app/components/Rent/ListingHeader";
-
-export const metadata: Metadata = {
-  title: "Lend on Thingo",
-  description: "Earn money by renting out your items on Thingo.",
-};
 
 export default function ListingLayout({ children }: { children: React.ReactNode }) {
   return (

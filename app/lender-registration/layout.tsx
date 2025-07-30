@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import OnboardingHeader from "@/app/components/Lend/OnboardingHeader";
 
 export const metadata: Metadata = {
-  title: "Lend on Thingo",
-  description: "Earn money by renting out your items on Thingo.",
+  title: "Lendaba Registration",
+  description: "Register as a lender on Lendaba to start earning by renting out your items.",
 };
 
 export default function LendLayout({ children }: { children: React.ReactNode }) {
