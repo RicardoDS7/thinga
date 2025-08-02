@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Ubuntu } from "next/font/google";
 import "./globals.css";
+import MetaPixel from "./components/MetaPixel";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const ubuntu = Ubuntu({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-display" , display: "swap"});
@@ -17,6 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <MetaPixel />
       <body
         className={`${inter.variable}  ${ubuntu.variable} antialiased`}
       >
