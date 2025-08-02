@@ -169,7 +169,7 @@ export default async function ListingPage({
         </div>
       </div>
 
-      {/* Mobile Reserve Button - Now properly linked */}
+      {/* Mobile Reserve Button - Now properly linked  */}
       <MobileReserveButton 
         price={listing.price}
         category={listing.category}
