@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import DateRangePicker from './CalenderPicker';
 import { Calendar, Calculator, Tag, Shield, X, User, Mail, Phone, Loader2 } from 'lucide-react';
+import { trackLead } from '@/app/utils/fbpixel';
 
 interface DateRange {
   startDate: Date | null;
@@ -301,6 +302,11 @@ export const BookingClient: React.FC<BookingClientProps> = ({
           email: '',
           phone: ''
         });
+
+        trackLead({
+          content_name: listingTitle,
+          content_category: category,
+          content_ids: [listingId],});
         
         if (onReserve) {
           const bookingDetails: BookingDetails = {

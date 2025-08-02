@@ -11,6 +11,7 @@ import Tooltip from "../components/Tooltip";
 import { formatCurrency } from "../lib/formatCurrency";
 import CustomSelect from "../components/CustomSelect";
 import { Edit2 } from "lucide-react";
+import { trackCompleteRegistration } from "../utils/fbpixel";
 
 interface FormDataType {
   category: string | null;
@@ -122,6 +123,12 @@ export default function LenderOnboardingForm() {
         ...formData,
         photos: imageUrls,
         timestamp: serverTimestamp(),
+      });
+
+      // Track lead when form is submitted
+      trackCompleteRegistration({
+        content_name: 'Lender Registration Form',
+        content_category: 'Lender Onboarding',
       });
 
       alert("Thanks! Your product has been listed.");
