@@ -10,7 +10,7 @@ export default async function NewListings() {
   return (
     <section className="py-16 px-4 max-w-7xl mx-auto">
       <h2 className="text-3xl font-semibold mb-6">New Listings</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2">
         {listings.map((item) => (
           <div key={item.id} className="rounded-xl bg-white shadow hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col group">
             <Link href={`/listings/${item.id}`}>
@@ -45,14 +45,14 @@ export default async function NewListings() {
                 </div>
               </div>
               <div className="p-3 flex-1 flex flex-col justify-between">
-                <h3 className="text-lg font-medium truncate group-hover:text-emerald-600 transition-colors">{item.title}</h3>
-                <div className="flex items-center text-sm text-gray-500 mt-1">
-                  <MapPin size={14} className="mr-1" />
-                  <span>{item.city}, {item.province}</span>
+                <h3 className="text-md font-medium group-hover:text-emerald-600 transition-colors line-clamp-2">{item.title}</h3>
+                <div className="flex items-center text-xs text-gray-500 mt-1">
+                  <MapPin size={14} className="mr-1 flex-shrink-0" />
+                  <span className="truncate">{item.city}, {item.province}</span>
                 </div>
                 <div className="flex items-center justify-between mt-2">
-                  <p className="text-emerald-600 font-bold">R{item.price}/day</p>
-                  <div className="flex items-center text-xs text-gray-400">
+                  <p className="text-[var(--color-primary)] font-bold">R{item.price}/day</p>
+                  <div className="hidden md:flex items-center text-xs text-gray-400">
                     <Calendar size={12} className="mr-1" />
                     <span>Available</span>
                   </div>

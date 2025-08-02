@@ -106,12 +106,12 @@ export default async function ListingPage({
               </h1>
               
               <div className="flex items-center gap-3 text-sm text-gray-600 mb-4">
-                <div className="flex items-center gap-1">
+                {/* <div className="flex items-center gap-1">
                   <FaStar className="w-4 h-4 text-yellow-400" />
                   <span className="font-medium">4.8</span>
                   <span>(124 reviews)</span>
                 </div>
-                <span>•</span>
+                <span>•</span> */}
                 <div className="flex items-center gap-1">
                   <FaMapMarkerAlt className="w-4 h-4" />
                   <span>{listing.city}, {listing.province}</span>
