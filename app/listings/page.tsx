@@ -8,6 +8,115 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, Filter, X, MapPin, Calendar } from "lucide-react";
 
+// Dual-handle range slider component
+const DualRangeSlider = ({ min, max, value, onChange }: {
+  min: number;
+  max: number;
+  value: { min: number; max: number };
+  onChange: (value: { min: number; max: number }) => void;
+}) => {
+  const handleMinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newMin = Math.min(Number(e.target.value), value.max);
+    onChange({ min: newMin, max: value.max });
+  };
+
+  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newMax = Math.max(Number(e.target.value), value.min);
+    onChange({ min: value.min, max: newMax });
+  };
+
+  const minPercent = ((value.min - min) / (max - min)) * 100;
+  const maxPercent = ((value.max - min) / (max - min)) * 100;
+
+  return (
+    <div className="relative">
+      <div className="relative h-2 bg-gray-200 rounded-lg">
+        {/* Active range background */}
+        <div 
+          className="absolute h-2 bg-emerald-500 rounded-lg"
+          style={{
+            left: `${minPercent}%`,
+            width: `${maxPercent - minPercent}%`
+          }}
+        />
+      </div>
+      
+      {/* Slider inputs - positioned separately for better interaction */}
+      <input
+        type="range"
+        min={min}
+        max={max}
+        value={value.min}
+        onChange={handleMinChange}
+        className="absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer range-slider"
+        style={{ zIndex: 1 }}
+      />
+      
+      <input
+        type="range"
+        min={min}
+        max={max}
+        value={value.max}
+        onChange={handleMaxChange}
+        className="absolute top-0 w-full h-2 bg-transparent appearance-none cursor-pointer range-slider"
+        style={{ zIndex: 2 }}
+      />
+    </div>
+  );
+};
+
+// Slider styles
+const sliderStyles = `
+  .range-slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    pointer-events: auto;
+    position: relative;
+    z-index: 999;
+  }
+  
+  .range-slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    pointer-events: auto;
+    position: relative;
+    z-index: 999;
+  }
+  
+  .range-slider::-webkit-slider-track {
+    background: transparent;
+    height: 2px;
+  }
+  
+  .range-slider::-moz-range-track {
+    background: transparent;
+    height: 2px;
+  }
+  
+  .range-slider {
+    pointer-events: none;
+  }
+  
+  .range-slider::-webkit-slider-thumb {
+    pointer-events: auto;
+  }
+  
+  .range-slider::-moz-range-thumb {
+    pointer-events: auto;
+  }
+`;
+
 // Slugify function
 const slugify = (text: string) =>
   text.toLowerCase().replace(/&/g, "and").replace(/\s+/g, "-").trim();
@@ -18,14 +127,7 @@ interface FilterState {
   location: string;
 }
 
-const priceRanges = [
-  { label: "All Prices", min: 0, max: Infinity },
-  { label: "Under R100", min: 0, max: 100 },
-  { label: "R100 - R300", min: 100, max: 300 },
-  { label: "R300 - R500", min: 300, max: 500 },
-  { label: "R500 - R1000", min: 500, max: 1000 },
-  { label: "Over R1000", min: 1000, max: Infinity },
-];
+// We'll calculate min/max from actual listings data
 
 export default function ListingsGrid() {
   const searchParams = useSearchParams();
@@ -37,11 +139,31 @@ export default function ListingsGrid() {
   const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
   
+  // Calculate min/max prices from listings
+  const priceStats = useMemo(() => {
+    if (listings.length === 0) return { min: 0, max: 1000 };
+    const prices = listings.map(item => Number(item.price));
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices)
+    };
+  }, [listings]);
+
   const [filters, setFilters] = useState<FilterState>({
     searchTerm: searchParam || "", // Initialize with URL search parameter
-    priceRange: { min: 0, max: Infinity },
+    priceRange: { min: 0, max: 0 }, // Will be set after listings load
     location: "",
   });
+
+  // Update price range when listings load
+  useEffect(() => {
+    if (listings.length > 0 && filters.priceRange.max === 0) {
+      setFilters(prev => ({
+        ...prev,
+        priceRange: { min: priceStats.min, max: priceStats.max }
+      }));
+    }
+  }, [listings, priceStats, filters.priceRange.max]);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -90,7 +212,7 @@ export default function ListingsGrid() {
     }
 
     // Apply price filter
-    if (filters.priceRange.max !== Infinity || filters.priceRange.min > 0) {
+    if (filters.priceRange.max !== priceStats.max || filters.priceRange.min !== priceStats.min) {
       filtered = filtered.filter((item) =>
         item.price >= filters.priceRange.min && item.price <= filters.priceRange.max
       );
@@ -132,7 +254,7 @@ export default function ListingsGrid() {
   const clearFilters = () => {
     setFilters({
       searchTerm: "",
-      priceRange: { min: 0, max: Infinity },
+      priceRange: { min: priceStats.min, max: priceStats.max },
       location: "",
     });
     
@@ -147,14 +269,18 @@ export default function ListingsGrid() {
   };
 
   const hasActiveFilters = filters.searchTerm || 
-                          filters.priceRange.max !== Infinity || 
-                          filters.priceRange.min > 0 ||
+                          filters.priceRange.max !== priceStats.max || 
+                          filters.priceRange.min !== priceStats.min ||
                           filters.location;
 
   if (loading) return <div className="text-center py-10">Loading listings...</div>;
 
   return (
-    <div className="px-4 pb-10 max-w-7xl mx-auto">
+    <>
+      {/* Inject slider styles */}
+      <style jsx>{sliderStyles}</style>
+      
+      <div className="px-4 pb-10 max-w-7xl mx-auto">
       {/* Search and Filter Controls */}
       <div className="mb-6 space-y-4">
         {/* Search Bar */}
@@ -184,7 +310,7 @@ export default function ListingsGrid() {
                 {[
                   filters.searchTerm,
                   filters.location,
-                  filters.priceRange.min > 0 || filters.priceRange.max !== Infinity
+                  filters.priceRange.min !== priceStats.min || filters.priceRange.max !== priceStats.max
                 ].filter(Boolean).length}
               </span>
             )}
@@ -192,22 +318,59 @@ export default function ListingsGrid() {
         </div>
 
         {/* Advanced Filters */}
-        <div className={`${showFilters ? 'block' : 'hidden'} md:block bg-white rounded-xl border border-gray-200 p-4 shadow-sm`}>
+        <div className={`${showFilters ? 'block' : 'hidden'} md:block bg-white rounded-xl border border-gray-200 p-4 shadow-sm space-y-4`}>
+          {/* Categories Section - Mobile Only */}
+          <div className="block md:hidden">
+            <label className="block text-sm font-medium text-gray-700 mb-3">Categories</label>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/listings"
+                className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                  categoryParam === null
+                    ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md"
+                    : "bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200"
+                }`}
+              >
+                All Categories
+              </Link>
+              {categories.map((category) => {
+                const slug = slugify(category);
+                const categoryCount = listings.filter(item => slugify(item.category) === slug).length;
+                return (
+                  <Link
+                    key={slug}
+                    href={`/listings?category=${slug}`}
+                    className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                      categoryParam === slug
+                        ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md"
+                        : "bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200"
+                    }`}
+                  >
+                    {category} ({categoryCount})
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Price Range Filter */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Price Range (per day)</label>
-              <select
-                value={JSON.stringify(filters.priceRange)}
-                onChange={(e) => updateFilter('priceRange', JSON.parse(e.target.value) as { min: number; max: number })}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-              >
-                {priceRanges.map((range) => (
-                  <option key={range.label} value={JSON.stringify({ min: range.min, max: range.max })}>
-                    {range.label}
-                  </option>
-                ))}
-              </select>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Price Range (per day)
+              </label>
+              <div className="space-y-3">
+                <DualRangeSlider
+                  min={priceStats.min}
+                  max={priceStats.max}
+                  value={filters.priceRange}
+                  onChange={(newRange) => updateFilter('priceRange', newRange)}
+                />
+                <div className="flex justify-between items-center text-sm text-gray-600">
+                  <span>R{filters.priceRange.min.toLocaleString('en-US')}</span>
+                  <span>R{filters.priceRange.max.toLocaleString('en-US')}</span>
+                </div>
+              </div>
             </div>
 
             {/* Location Filter */}
@@ -259,11 +422,10 @@ export default function ListingsGrid() {
                 </button>
               </span>
             )}
-            {(filters.priceRange.max !== Infinity || filters.priceRange.min > 0) && (
+            {(filters.priceRange.max !== priceStats.max || filters.priceRange.min !== priceStats.min) && (
               <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
-                Price: {filters.priceRange.max === Infinity ? `R${filters.priceRange.min}+` : 
-                        `R${filters.priceRange.min} - R${filters.priceRange.max}`}
-                <button onClick={() => updateFilter('priceRange', { min: 0, max: Infinity })}>
+                Price: R{filters.priceRange.min.toLocaleString('en-US')} - R{filters.priceRange.max.toLocaleString('en-US')}
+                <button onClick={() => updateFilter('priceRange', { min: priceStats.min, max: priceStats.max })}>
                   <X size={14} />
                 </button>
               </span>
@@ -297,8 +459,8 @@ export default function ListingsGrid() {
         </p>
       </div>
 
-      {/* Category Filter Buttons */}
-      <div className="flex flex-wrap gap-3 justify-center mb-6">
+      {/* Category Filter Buttons - Desktop Only */}
+      <div className="hidden md:flex flex-wrap gap-3 justify-center mb-6">
         <Link
           href="/listings"
           className={`px-4 py-2 rounded-full text-sm transition-all ${
@@ -363,7 +525,7 @@ export default function ListingsGrid() {
       )}
 
       {/* Grid of Listings */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-2">
         {filteredListings.map((item) => (
           <div key={item.id} className="rounded-xl bg-white shadow hover:shadow-lg transition-all duration-200 overflow-hidden flex flex-col group">
             <Link href={`/listings/${item.id}`}>
@@ -398,14 +560,16 @@ export default function ListingsGrid() {
                 </div>
               </div>
               <div className="p-3 flex-1 flex flex-col justify-between">
-                <h3 className="text-lg font-medium truncate group-hover:text-emerald-600 transition-colors">{item.title}</h3>
-                <div className="flex items-center text-sm text-gray-500 mt-1">
-                  <MapPin size={14} className="mr-1" />
-                  <span>{item.city}, {item.province}</span>
+                <h4 className="text-sm font-inter group-hover:text-emerald-600 transition-colors line-clamp-1">{item.title}</h4>
+                <div className="flex items-center text-xs text-gray-500 mt-1">
+                  <MapPin size={14} className="mr-1 flex-shrink-0" />
+                  <span className="truncate">{item.city}, {item.province}</span>
                 </div>
                 <div className="flex items-center justify-between mt-2">
-                  <p className="text-emerald-600 font-bold">R{item.price}/day</p>
-                  <div className="flex items-center text-xs text-gray-400">
+                  <p className="text-[var(--color-primary)] font-bold">
+                    R{Intl.NumberFormat("en-US").format(Number(item.price))}/day
+                  </p>
+                  <div className="hidden md:flex items-center text-xs text-gray-400">
                     <Calendar size={12} className="mr-1" />
                     <span>Available</span>
                   </div>
@@ -416,5 +580,6 @@ export default function ListingsGrid() {
         ))}
       </div>
     </div>
+    </>
   );
 }

@@ -45,13 +45,15 @@ export default async function NewListings() {
                 </div>
               </div>
               <div className="p-3 flex-1 flex flex-col justify-between">
-                <h3 className="text-md font-medium group-hover:text-emerald-600 transition-colors line-clamp-2">{item.title}</h3>
+                <h4 className="text-sm font-inter group-hover:text-emerald-600 transition-colors line-clamp-1">{item.title}</h4>
                 <div className="flex items-center text-xs text-gray-500 mt-1">
                   <MapPin size={14} className="mr-1 flex-shrink-0" />
                   <span className="truncate">{item.city}, {item.province}</span>
                 </div>
                 <div className="flex items-center justify-between mt-2">
-                  <p className="text-[var(--color-primary)] font-bold">R{item.price}/day</p>
+                  <p className="text-[var(--color-primary)] font-bold">
+                    R{Intl.NumberFormat("en-US").format(Number(item.price))}/day
+                  </p>
                   <div className="hidden md:flex items-center text-xs text-gray-400">
                     <Calendar size={12} className="mr-1" />
                     <span>Available</span>

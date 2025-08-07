@@ -26,13 +26,13 @@ export default function Header() {
       >
         <header className="mx-auto max-w-screen-xl flex justify-between items-center px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <h1 className="text-3xl">
-              LENDABA
+            <h1 className="text-4xl logo-display">
+              <span className="italic">l</span>endaba
             </h1>
           </Link>
           <Link
             href="/lend"
-            className="hidden md:block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base py-2 px-6 rounded-full shadow-sm hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+            className="hidden md:block bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium text-base px-6 py-3 rounded-full shadow-sm hover:shadow-lg transform hover:scale-105 transition-all duration-300"
           >
             Become a Lender
           </Link>

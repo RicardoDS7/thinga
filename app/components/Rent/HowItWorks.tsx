@@ -101,7 +101,7 @@ export default function HowItWorksSection() {
         <div className="text-center mt-16">
           <button 
           onClick={() => window.location.href = "/listings"}
-          className="cursor-pointer bg-gradient-to-r from-rose-500 to-pink-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+          className="cursor-pointer bg-gradient-to-r from-rose-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
             Start Renting Now
           </button>
         </div>

@@ -12,20 +12,50 @@ import {
 } from "firebase/firestore";
 import { Listing } from "@/app/types/listings";
 
+// app/lib/getListings.ts
 export async function getListings(): Promise<Listing[]> {
-  const q = query(
-    collection(db, "listings"),
-    where("approved", "==", true),             // ✅ Only get approved listings
-    orderBy("timestamp", "desc"),
-    limit(10)
-  );
+  try {
+    console.log("🔍 Fetching listings...");
+    
+    const q = query(
+      collection(db, "listings"),
+      where("approved", "==", true),
+      orderBy("timestamp", "desc"),
+      limit(10)
+    );
 
-  const snapshot = await getDocs(q);
+    const snapshot = await getDocs(q);
+    
+    console.log(`📊 Found ${snapshot.docs.length} approved listings`);
+    
+    // Debug: Log the first few documents
+    snapshot.docs.slice(0, 3).forEach((doc, index) => {
+      const data = doc.data();
+      console.log(`📝 Listing ${index + 1}:`, {
+        id: doc.id,
+        approved: data.approved,
+        timestamp: data.timestamp?.toDate?.() || data.timestamp,
+        title: data.title
+      });
+    });
 
-  return snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-  })) as Listing[];
+    const listings = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        // Ensure timestamp is properly converted
+        timestamp: data.timestamp?.toDate?.() || data.timestamp,
+      };
+    }) as Listing[];
+
+    console.log("✅ Listings fetched successfully");
+    return listings;
+    
+  } catch (error) {
+    console.error("❌ Error fetching listings:", error);
+    throw error;
+  }
 }
 
 export async function getListingById(id: string): Promise<Listing | null> {

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Ubuntu } from "next/font/google";
+import { Inter, MuseoModerno, Paytone_One } from "next/font/google";
 import "./globals.css";
 import MetaPixelWrapper from "./components/MetaPixelWrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const ubuntu = Ubuntu({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-display" , display: "swap"});
+// const museo_moderno = MuseoModerno({ subsets: ["latin"], style: ["normal","italic"], weight: ["400", "500", "700"], variable: "--font-display" , display: "swap"});
+const paytone_one = Paytone_One({ subsets: ["latin"], style: ["normal"], weight: ["400"], variable: "--font-display" , display: "swap"});
 
 export const metadata: Metadata = {
   title: "Lendaba",
@@ -18,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <MetaPixelWrapper pixelId={process.env.NEXT_PUBLIC_META_PIXEL_ID!}/>
       <body
-        className={`${inter.variable}  ${ubuntu.variable} antialiased`}
+        className={`${inter.variable} ${paytone_one.variable} antialiased`}
       >
+        <MetaPixelWrapper pixelId={process.env.NEXT_PUBLIC_META_PIXEL_ID!}/>
         {children}
       </body>
     </html>

@@ -1,4 +1,4 @@
-// Updated LenderOnboardingForm.tsx with consistent select UI and fixed address fields
+// Updated LenderOnboardingForm.tsx with loading state and success page
 
 "use client";
 
@@ -10,7 +10,7 @@ import AddableItemGrid from "../components/Lend/ListingMockup";
 import Tooltip from "../components/Tooltip";
 import { formatCurrency } from "../lib/formatCurrency";
 import CustomSelect from "../components/CustomSelect";
-import { Edit2 } from "lucide-react";
+import { Edit2, CheckCircle, Loader } from "lucide-react";
 import { trackCompleteRegistration } from "../utils/fbpixel";
 
 interface FormDataType {
@@ -36,6 +36,8 @@ interface FormDataType {
 
 export default function LenderOnboardingForm() {
   const [step, setStep] = useState<number>(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormDataType>({
     category: null,
     title: "",
@@ -109,7 +111,10 @@ export default function LenderOnboardingForm() {
   };
 
   const handleSubmit = async () => {
-    if (validateStep()) {
+    if (!validateStep()) return;
+    
+    setIsSubmitting(true);
+    
     try {
       const imageUrls: string[] = [];
       for (const file of formData.photos) {
@@ -131,34 +136,46 @@ export default function LenderOnboardingForm() {
         content_category: 'Lender Onboarding',
       });
 
-      alert("Thanks! Your product has been listed.");
-      setStep(1);
-      setFormData({
-        category: null,
-        title: "",
-        description: "",
-        condition: "New",
-        photos: [],
-        price: "",
-        depositAmount: "",
-        insured: "Yes",
-        streetAddress: "",
-        city: "",
-        province: "",
-        postalcode: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        consent: false,
-        approved: false, 
-      });
-      setPhotoPreviews([]);
+      // Show success state
+      setIsSubmitted(true);
     } catch (err) {
       console.error("Error uploading form:", err);
       alert("Something went wrong. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
-  }
+  };
+
+  const resetForm = () => {
+    setStep(1);
+    setIsSubmitted(false);
+    setIsSubmitting(false);
+    setFormData({
+      category: null,
+      title: "",
+      description: "",
+      condition: "New",
+      photos: [],
+      price: "",
+      depositAmount: "",
+      insured: "Yes",
+      streetAddress: "",
+      city: "",
+      province: "",
+      postalcode: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      consent: false,
+      approved: false, 
+    });
+    setPhotoPreviews([]);
+  };
+
+  const handleReturnHome = () => {
+    // You can use router.push('/') or window.location.href = '/' depending on your setup
+    window.location.href = '/';
   };
 
   const validateStep = () => {
@@ -262,6 +279,43 @@ const handleBack = () => {
   }
 };
 
+  // Success state
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen px-4 flex flex-col items-center justify-center bg-[var(--color-bg)]">
+        <div className="w-full max-w-md text-center space-y-6">
+          <div className="flex justify-center">
+            <CheckCircle className="w-16 h-16 text-emerald-500" />
+          </div>
+          
+          <div className="space-y-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
+              Your listing is being reviewed!
+            </h2>
+            <p className="text-gray-600">
+              Thank you for submitting your listing. Our team will review it and you&apos;ll hear back from us within 24 hours.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <button
+              onClick={handleReturnHome}
+              className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-3 px-6 rounded-full shadow-md hover:brightness-110 transition"
+            >
+              Return Home
+            </button>
+            
+            <button
+              onClick={resetForm}
+              className="w-full text-gray-600 hover:text-gray-800 font-medium py-2 transition"
+            >
+              List Another Item
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen px-4 flex flex-col items-center justify-start bg-[var(--color-bg)]">
@@ -274,7 +328,7 @@ const handleBack = () => {
         className="h-full space-y-6 relative"
       >
         {step === 1 && (
-          <div className="my-6 space-y-8">
+          <div className="mt-6 space-y-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
               What category does your item fit in?
             </h2>
@@ -291,90 +345,95 @@ const handleBack = () => {
               Tell us more about what you&apos;re lending?
             </h2>
 
-            <div className="space-y-2">
-            <label className="block font-medium">Product Title</label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-            />
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <label className="block font-medium">Product Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                />
+              </div>
 
-            <label className="block font-medium">Description</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-              rows={4}
-              placeholder="Describe its features, condition, and ideal use case..."
-            />
+              <div className="space-y-2">
+                <label className="block font-medium">Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                  rows={4}
+                  placeholder="Describe its features, condition, and ideal use case..."
+                />
+              </div>
 
-            <label className="block font-medium">Condition</label>
-            <CustomSelect
-              id="condition"
-              name="condition"
-              value={formData.condition}
-              options={[
-                { value: "New", label: "New" },
-                { value: "Like New", label: "Like New" },
-                { value: "Good", label: "Good" },
-                { value: "Fair", label: "Fair" },
-                { value: "Poor", label: "Poor" },
-              ]}
-              onChange={handleChange}
-              placeholder="Select condition"
-              required
-            />
+              <div className="space-y-2">
+                <label className="block font-medium">Condition</label>
+                <CustomSelect
+                  id="condition"
+                  name="condition"
+                  value={formData.condition}
+                  options={[
+                    { value: "New", label: "New" },
+                    { value: "Like New", label: "Like New" },
+                    { value: "Good", label: "Good" },
+                    { value: "Fair", label: "Fair" },
+                    { value: "Poor", label: "Poor" },
+                  ]}
+                  onChange={handleChange}
+                  placeholder="Select condition"
+                  required
+                />
+              </div>
 
-            <label className="block font-medium">Photos (Max. file size of {MAX_FILE_SIZE_MB}MB per photo)</label>
-            <p className="text-sm text-gray-500 mb-2">
-              High-quality photos from multiple angles help your item rent faster and build trust.
-            </p>
-            <div className="flex gap-4 mb-4">
-              {photoPreviews.map((url, index) => (
-                <div key={index} className="relative group w-36 h-36 border border-gray-300 rounded-md overflow-hidden">
-                  <img src={url} alt={`Upload ${index}`} className="object-cover w-full h-full" />
-                  <button
-                    type="button"
-                    onClick={() => removePhoto(index)}
-                    className="cursor-pointer absolute top-0 right-0 p-1 bg-[var(--color-accent)] bg-opacity-60 text-white text-xs rounded-bl hover:bg-opacity-80"
-                  >
-                    ✕
-                  </button>
+              <div className="space-y-2">
+                <label className="block font-medium">Photos (Max. file size of {MAX_FILE_SIZE_MB}MB per photo)</label>
+                <p className="text-sm text-gray-500">
+                  High-quality photos from multiple angles help your item rent faster and build trust.
+                </p>
+                <div className="flex gap-4">
+                  {photoPreviews.map((url, index) => (
+                    <div key={index} className="relative group w-36 h-36 border border-gray-300 rounded-md overflow-hidden">
+                      <img src={url} alt={`Upload ${index}`} className="object-cover w-full h-full" />
+                      <button
+                        type="button"
+                        onClick={() => removePhoto(index)}
+                        className="cursor-pointer absolute top-0 right-0 p-1 bg-[var(--color-accent)] bg-opacity-60 text-white text-xs rounded-bl hover:bg-opacity-80"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                  {formData.photos.length < 3 && (
+                    <label className="flex items-center justify-center w-24 h-24 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-100">
+                      <span className="text-2xl text-gray-400">+</span>
+                      <input
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
                 </div>
-              ))}
-              {formData.photos.length < 3 && (
-                <label className="flex items-center justify-center w-24 h-24 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-100">
-                  <span className="text-2xl text-gray-400">+</span>
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="hidden"
-                  />
-                </label>
-              )}
-            </div>
+              </div>
             </div>
           </div>
         )}
 
         {step === 3 && (
           <div className="mt-6 space-y-8">
-            {/* Heading */}
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
               Now, set your daily rental price
             </h2>
 
-            {/* Tip */}
             <p className="text-sm sm:text-base text-gray-500">
               Tip: {Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR" }).format(514)}. You&apos;ll set a weekend price next.
             </p>
 
-            {/* Price Input */}
             <div className="relative flex justify-center">
               <input
                 type="text"
@@ -400,13 +459,11 @@ const handleBack = () => {
               />
               {!isFocused && (
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
-                  {/* swap for your icon library if you prefer */}
                   <Edit2 className="w-6 h-6 text-gray-500" />
                 </div>
               )}
             </div>
 
-            {/* Earnings Summary */}
             {formData.price && (
               <div className="flex flex-col items-center justify-center gap-6">
                 <div className="flex items-center space-x-2 bg-gray-100 px-4 py-2 rounded-full text-sm text-gray-700">
@@ -438,142 +495,134 @@ const handleBack = () => {
               </div>
             )}
 
-            {/* Deposit Section */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <label className="font-medium">Deposit Amount</label>
-                <Tooltip message="A deposit can protect you from damage or loss. Most lenders ask for 10–30% of the item value." />
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <label className="font-medium">Deposit Amount</label>
+                  <Tooltip message="A deposit can protect you from damage or loss. Most lenders ask for 10–30% of the item value." />
+                </div>
+                <input
+                  type="text"
+                  name="depositAmount"
+                  placeholder="R0"
+                  value={formatCurrency(formData.depositAmount)}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/[^\d]/g, "")
+                    setFormData((prev) => ({ ...prev, depositAmount: raw }))
+                  }}
+                  className="
+                    w-full
+                    border border-gray-300 rounded-lg
+                    px-4 py-2 bg-white
+                    focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition
+                  "
+                />
               </div>
-              <input
-                type="text"
-                name="depositAmount"
-                placeholder="R0"
-                value={formatCurrency(formData.depositAmount)}
-                onChange={(e) => {
-                  const raw = e.target.value.replace(/[^\d]/g, "")
-                  setFormData((prev) => ({ ...prev, depositAmount: raw }))
-                }}
-                className="
-                  w-full
-                  border border-gray-300 rounded-lg
-                  px-4 py-2 bg-white
-                  focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] transition
-                "
-              />
-            </div>
 
-            {/* Insurance Section */}
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <label className="font-medium">Is your item insured?</label>
-                <Tooltip message="Insurance helps cover loss, theft, or damage while your item is being rented…" />
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <label className="font-medium">Is your item insured?</label>
+                  <Tooltip message="Insurance helps cover loss, theft, or damage while your item is being rented…" />
+                </div>
+                <CustomSelect
+                  id="insured"
+                  name="insured"
+                  value={formData.insured}
+                  options={[
+                    { value: "Yes", label: "Yes" },
+                    { value: "No", label: "No" },
+                  ]}
+                  onChange={handleChange}
+                  placeholder="Select an option"
+                  required
+                />
               </div>
-              <CustomSelect
-                id="insured"
-                name="insured"
-                value={formData.insured}
-                options={[
-                  { value: "Yes", label: "Yes" },
-                  { value: "No", label: "No" },
-                ]}
-                onChange={handleChange}
-                placeholder="Select an option"
-                required
-              />
             </div>
           </div>
         )}
 
-
-
-
         {step === 4 && (
-        <div className="my-6 space-y-8">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
-            Where can renters pick up your item?
-          </h2>
-          <p className="text-sm text-gray-500">
-            Your address will only be visible to renters after they book your item.
-          </p>
-          <div className="grid gap-5">
-            {/* Street Address */}
-            <div>
-              <label htmlFor="streetAddress" className="block text-sm font-medium text-gray-700 mb-1">
-                Street Address
-              </label>
-              <input
-                id="streetAddress"
-                type="text"
-                name="streetAddress"
-                value={formData.streetAddress}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-                placeholder="e.g., 12 Main Road, Sea Point"
-              />
-            </div>
+          <div className="mt-6 space-y-8">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+              Where can renters pick up your item?
+            </h2>
+            <p className="text-sm text-gray-500">
+              Your address will only be visible to renters after they book your item.
+            </p>
+            
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="streetAddress" className="block text-sm font-medium text-gray-700">
+                  Street Address
+                </label>
+                <input
+                  id="streetAddress"
+                  type="text"
+                  name="streetAddress"
+                  value={formData.streetAddress}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                  placeholder="e.g., 12 Main Road, Sea Point"
+                />
+              </div>
 
-            {/* City */}
-            <div>
-              <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                City
-              </label>
-              <input
-                id="city"
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-                placeholder="e.g., Cape Town"
-              />
-            </div>
+              <div className="space-y-2">
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                  City
+                </label>
+                <input
+                  id="city"
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                  placeholder="e.g., Cape Town"
+                />
+              </div>
 
-            {/* Province */}
-            <div>
-              <label htmlFor="province" className="block text-sm font-medium text-gray-700 mb-1">
-                Province
-              </label>
-              <CustomSelect
-                id="province"
-                name="province"
-                value={formData.province}
-                options={[
-                  { value: "Western Cape", label: "Western Cape" },
-                  { value: "Gauteng", label: "Gauteng" },
-                  { value: "KwaZulu-Natal", label: "KwaZulu-Natal" },
-                  { value: "Eastern Cape", label: "Eastern Cape" },
-                  { value: "Free State", label: "Free State" },
-                  { value: "Limpopo", label: "Limpopo" },
-                  { value: "Mpumalanga", label: "Mpumalanga" },
-                  { value: "North West", label: "North West" },
-                  { value: "Northern Cape", label: "Northern Cape" },
-                ]}
-                onChange={handleChange} 
-                placeholder="Select a province"
-                required
-              />
-            </div>
+              <div className="space-y-2">
+                <label htmlFor="province" className="block text-sm font-medium text-gray-700">
+                  Province
+                </label>
+                <CustomSelect
+                  id="province"
+                  name="province"
+                  value={formData.province}
+                  options={[
+                    { value: "Western Cape", label: "Western Cape" },
+                    { value: "Gauteng", label: "Gauteng" },
+                    { value: "KwaZulu-Natal", label: "KwaZulu-Natal" },
+                    { value: "Eastern Cape", label: "Eastern Cape" },
+                    { value: "Free State", label: "Free State" },
+                    { value: "Limpopo", label: "Limpopo" },
+                    { value: "Mpumalanga", label: "Mpumalanga" },
+                    { value: "North West", label: "North West" },
+                    { value: "Northern Cape", label: "Northern Cape" },
+                  ]}
+                  onChange={handleChange} 
+                  placeholder="Select a province"
+                  required
+                />
+              </div>
 
-            {/* Postal Code */}
-            <div>
-              <label htmlFor="postalcode" className="block text-sm font-medium text-gray-700 mb-1">
-                Postal Code
-              </label>
-              <input
-                id="postalcode"
-                type="text"
-                name="postalcode"
-                value={formData.postalcode}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-                placeholder="e.g., 7785"
-              />
+              <div className="space-y-2">
+                <label htmlFor="postalcode" className="block text-sm font-medium text-gray-700">
+                  Postal Code
+                </label>
+                <input
+                  id="postalcode"
+                  type="text"
+                  name="postalcode"
+                  value={formData.postalcode}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                  placeholder="e.g., 7785"
+                />
+              </div>
             </div>
-
           </div>
-        </div>
-      )}
-
+        )}
 
         {step === 5 && (
           <div className="mt-6 space-y-8">
@@ -581,50 +630,52 @@ const handleBack = () => {
               Finally, your contact details
             </h2>
 
-            <div className="space-y-2">
-              <div className="flex-1 flex-col sm:flex-row items-center gap-2 space-y-2">
-                <div className="flex flex-col items-start gap-2">
-                  <label className="block font-medium">First Name</label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-                  />
-                </div>
-
-                <div className="flex flex-col items-start gap-2">
-                  <label className="block font-medium">Last Name</label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-                  />
-                </div>
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <label className="block font-medium">First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                />
               </div>
 
-              <label className="block font-medium">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-              />
+              <div className="space-y-2">
+                <label className="block font-medium">Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                />
+              </div>
 
-              <label className="block font-medium">Mobile Number (Optional)</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
-              />
+              <div className="space-y-2">
+                <label className="block font-medium">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                />
+              </div>
 
-              <div className="flex items-start gap-2 mt-4">
+              <div className="space-y-2">
+                <label className="block font-medium">Mobile Number (Optional)</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)]"
+                />
+              </div>
+
+              <div className="flex items-start gap-2">
                 <input
                   type="checkbox"
                   id="consent"
@@ -648,7 +699,8 @@ const handleBack = () => {
             <button
               type="button"
               onClick={handleBack}
-              className="cursor-pointer font-medium text-gray-600 hover:underline"
+              disabled={isSubmitting}
+              className="cursor-pointer font-medium text-gray-600 hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Back
             </button>
@@ -660,7 +712,8 @@ const handleBack = () => {
             <button
               type="button"
               onClick={handleNext}
-              className="cursor-pointer text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition"
+              disabled={isSubmitting}
+              className="cursor-pointer text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next
             </button>
@@ -668,9 +721,17 @@ const handleBack = () => {
             <button
               type="button"
               onClick={handleSubmit}
-              className="cursor-pointer text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition"
+              disabled={isSubmitting}
+              className="cursor-pointer text-center bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-2 px-6 rounded-full shadow-md hover:brightness-110 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             >
-              List My Product
+              {isSubmitting ? (
+                <>
+                  <Loader className="w-4 h-4 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                'List My Product'
+              )}
             </button>
           )}
           </div>

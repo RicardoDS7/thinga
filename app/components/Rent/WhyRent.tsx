@@ -70,10 +70,10 @@ export default function WhyRentSplitSection() {
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-100 space-x-2">
+          <div className="bg-white rounded-full p-2 shadow-lg border border-gray-100 space-x-2">
             <button
               onClick={() => setActiveTab("renters")}
-              className={`cursor-pointer px-8 py-3 rounded-xl font-semibold transition-all  ${
+              className={`cursor-pointer px-6 py-3 rounded-full font-semibold transition-all  ${
                 activeTab === "renters"
                   ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
                   : "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
@@ -83,7 +83,7 @@ export default function WhyRentSplitSection() {
             </button>
             <button
               onClick={() => setActiveTab("lenders")}
-              className={`cursor-pointer px-8 py-3 rounded-xl font-semibold transition-all  ${
+              className={`cursor-pointer px-6 py-3 rounded-full font-semibold transition-all  ${
                 activeTab === "lenders"
                   ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg"
                   : "text-gray-600 hover:text-gray-800 hover:bg-gray-50"
@@ -107,10 +107,10 @@ export default function WhyRentSplitSection() {
                 }}
               >
                 {/* Gradient background overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-5 transition-all duration-500`}></div>
+                {/* <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-5 transition-all duration-500`}></div> */}
                 
                 {/* Decorative corner accent */}
-                <div className={`absolute -top-2 -right-2 w-20 h-20 bg-gradient-to-br ${item.color} rounded-full opacity-10 group-hover:opacity-20 transition-all duration-500 group-hover:scale-110`}></div>
+                {/* <div className={`absolute -top-2 -right-2 w-20 h-20 bg-gradient-to-br ${item.color} rounded-full opacity-10 group-hover:opacity-20 transition-all duration-500 group-hover:scale-110`}></div> */}
                 
                 <div className="relative z-10">
                   {/* Icon container with improved styling */}
@@ -165,12 +165,12 @@ export default function WhyRentSplitSection() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
               onClick={() => window.location.href = "/listings"}
-              className="cursor-pointer bg-white text-pink-500 px-8 py-3 rounded-xl font-semibold hover:bg-gray-50 shadow-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+              className="cursor-pointer bg-white text-pink-500 px-6 py-3 rounded-full font-semibold hover:bg-gray-50 shadow-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300">
                 <span className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent">Start Renting</span>
               </button>
               <button 
               onClick={() => window.location.href = "/lender-registration"}
-              className="cursor-pointer bg-gradient-to-r from-rose-500 to-pink-500 text-white px-8 py-3 rounded-xl font-semibold hover:bg-purple-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+              className="cursor-pointer bg-gradient-to-r from-rose-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-800 hover:shadow-lg transform hover:scale-105 transition-all duration-300">
                 Start Lending
               </button>
             </div>

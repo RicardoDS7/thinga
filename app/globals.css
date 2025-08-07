@@ -10,8 +10,8 @@
   --color-bg: #FAFAF6;
   --color-text: #2E2E2E;
   --color-border: #E6E6E6;
-  --font-sans: var(--font-geist-sans, 'Inter', sans-serif);
-  --font-display: var(--font-comfortaa);
+  --font-sans: var(--font-inter, 'Inter', sans-serif);
+  --font-display: var(--font-paytone_one, 'Museo Moderno', sans-serif);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -49,8 +49,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans, 'Inter', sans-serif);
-  --font-display: var(--font-manrope);
+  --font-sans: var(--font-sans, 'Inter', sans-serif);
+  --font-display: var(--font-paytone_one, 'Museo Moderno', sans-serif);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -103,9 +103,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
+ h4 {
+  font-family: var(--font-inter);
+  font-weight: 600;
+}
+
+.logo-display {
+  font-family: var(--font-display);
+  font-weight: 500;
   color: var(--color-primary);
 }
 

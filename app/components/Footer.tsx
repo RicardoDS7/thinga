@@ -16,7 +16,9 @@ export default function Footer() {
                   height={48}
                   className="mr-3"
                 /> */}
-                <h2 className="text-2xl font-bold text-gray-900">LENDABA</h2>
+                <span className="text-3xl logo-display">
+                  <span className="italic">l</span>endaba
+                </span>
               </div>
               <p className="text-sm text-gray-600 leading-relaxed max-w-xs">
                 Rent anything, anywhere, anytime. Connect with your community and discover endless possibilities through peer-to-peer rentals.
