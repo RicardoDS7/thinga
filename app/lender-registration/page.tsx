@@ -1,4 +1,4 @@
-// Updated LenderOnboardingForm.tsx with loading state and success page
+// Updated LenderOnboardingForm.tsx with proper bottom padding for mobile sticky menu
 
 "use client";
 
@@ -322,7 +322,8 @@ const handleBack = () => {
     <div className="w-full max-w-2xl flex flex-col justify-between h-full px-4">
     <div className="mb-4 text-sm text-gray-500 font-bold">Step {step} of 5</div>
 
-    <div className="flex-1">
+    {/* Added pb-24 to create space for sticky bottom menu */}
+    <div className="flex-1 pb-24">
       <form
         onSubmit={(e) => e.preventDefault()}
         className="h-full space-y-6 relative"
