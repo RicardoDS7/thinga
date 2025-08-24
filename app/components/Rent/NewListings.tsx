@@ -1,11 +1,11 @@
 // components/NewListings.tsx
-import { getListings } from "@/app/lib/getListings";
+import { getNewListings } from "@/app/lib/getListings";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Calendar } from "lucide-react";
 
 export default async function NewListings() {
-  const listings = await getListings();
+  const listings = await getNewListings();
 
   return (
     <section className="py-16 px-4 max-w-7xl mx-auto">
